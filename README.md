@@ -11,9 +11,13 @@ PTV --> this the first structure
 ITV --> this the second structure
 
 There are 5 operator :
+
 "|" for the sum of the structure
+
 "&" for the intersection
+
 "-" for the soustraction between two structures
+
 "^" for the union
 
 + for create margin to defined structure
