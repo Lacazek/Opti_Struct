@@ -1,0 +1,8 @@
+z_OV vessie : Vessie & PTV2
+z_OV rectum : Rectum & PTV1
+z_Vessie - PTV2 : Vessie - PTV2
+z_Rectum - PTV1 : Rectume - PTV1
+z_PTV1 loin : PTV2 + 2.00
+z_PTV1 loin : PTV1 - test
+z_PTV1 proche : PTV1 ^ z_PTV1 loin
+z_opt post : rectum + 0.00

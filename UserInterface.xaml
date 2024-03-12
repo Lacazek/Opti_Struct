@@ -1,0 +1,16 @@
+﻿<Window x:Class="Structure_optimisation.UserInterface"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Structure_optimisation" 
+        mc:Ignorable="d"
+        Title="UserInterface" Height="450" Width="800">
+    <Grid>
+        <ComboBox x:Name="Box_Loc"  HorizontalAlignment="Left" Height="33" Margin="57,126,0,0" VerticalAlignment="Top" Width="253" SelectionChanged="ComboBox_SelectionChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="58,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="252" TextAlignment="Center"><Run Language="fr-fr" Text="Choississez la localisation appropriée."/></TextBlock>
+        <Button x:Name="OK_Button" Content="OK" HorizontalAlignment="Left" Height="32" Margin="124,185,0,0" VerticalAlignment="Top" Width="118" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Left" Height="51" Margin="42,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" TextAlignment="Center" FontSize="16"><Run Language="fr-fr" Text="Création des volumes d'optimisation de façon automatique"/></TextBlock>
+        <Button Content="Close" HorizontalAlignment="Left" Height="32" Margin="355,185,0,0" VerticalAlignment="Top" Width="116" Background="#FFFF2727" Click="Button_Close"/>
+    </Grid>
+</Window>

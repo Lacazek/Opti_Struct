@@ -1,0 +1,121 @@
+public void Volume(StructureSet ss)
+{
+
+	//RenameITV = ITV.Id.Substring(ITV.Id.Length - 3);
+
+	List<Structure> PTV = new List<Structure>();
+	int count = 0;
+	Structure BODY = ss.Structures.Where(x => x.DicomType.ToUpper().Equals("EXTERNAL")).SingleOrDefault();
+	Structure LargestPTV = BODY; // sert juste pour déclarer
+
+	try
+	{
+		foreach (Structure target in ss.Structures.Where(x => x.DicomType.ToUpper().Contains("PTV")))
+		{
+			PTV.Add(target);
+			if (PTV[count - 1].Volume > PTV[count].Volume || count != 0)
+				LargestPTV = target;
+			count++;
+		}
+	}
+	catch (Exception ex)
+	{
+		MessageBox.Show("Une erreur est survenue : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+	}
+
+
+	#region Ring autour du PTV       
+	try
+	{
+		Structure Ring1 = ss.AddStructure("Control", "Ring1 ");
+		Ring1.SegmentVolume = LargestPTV.Margin(5.00);
+		Structure Ring2 = ss.AddStructure("Control", "Ring2 ");
+		Ring2.SegmentVolume = LargestPTV.Margin(10.00);
+		Structure Ring3 = ss.AddStructure("Control", "Ring3 ");
+		Ring3.SegmentVolume = LargestPTV.Margin(30.00);
+
+		Ring3.SegmentVolume = Ring3.Sub(Ring2).And(BODY);
+		Ring2.SegmentVolume = Ring2.Sub(Ring1).And(BODY);
+		Ring1.SegmentVolume = Ring1.Sub(LargestPTV).And(BODY);
+
+	}
+	catch (Exception ex)
+	{
+		MessageBox.Show("Une erreur est survenue : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+	}
+	#endregion
+
+	/*if (UserChoice == "POUMON")
+	{
+		//UserChoice est théoriquement défini avec l'appel de la fenêtre
+
+		#region Structure d'optimisation 
+		try
+		{
+
+			Structure Canalmed = ss.Structures.Where(x => x.Id.ToUpper().Contains("CANAL MED")).SingleOrDefault();
+			Structure Canalmed_5 = ss.AddStructure("Avoidance", "z_Canal+5");
+			Structure Moelle = ss.Structures.Where(x => x.Id.ToUpper().Contains("MOELLE")).SingleOrDefault();
+			Structure Moelle_5 = ss.AddStructure("Avoidance", "z_Moelle+5");
+			Canalmed_5.SegmentVolume = Canalmed.Margin(5.00);
+			Moelle_5.SegmentVolume = Moelle.Margin(5.00);
+
+			Structure GTV = ss.Structures.Where(x => x.Id.ToUpper().Equals("GTV") || x.Id.ToUpper().Equals("GTV+")).SingleOrDefault();
+			Structure PTV_GTV = ss.AddStructure("PTV", "z_PTV-GTV ");
+			PTV_GTV.SegmentVolume = LargestPTV.Margin(0.00);
+			PTV_GTV.SegmentVolume = LargestPTV.Sub(GTV).And(BODY);
+
+
+			Structure Poumons = ss.Structures.Where(x => x.Id.ToUpper().Equals("POUMONS")).SingleOrDefault();
+
+			Structure Poumon_Homo = Poumons;
+			if (LargestPTV.CenterPoint.x > 0)
+				Poumon_Homo = ss.Structures.Where(x => x.Id.ToUpper().Contains("POUMONG")).SingleOrDefault();
+
+			Structure PoumonHomo_PTV = ss.AddStructure("Organ", "z_PoumH-PTV");
+			PoumonHomo_PTV.SegmentVolume = Poumon_Homo.Margin(0.00);
+			PoumonHomo_PTV.SegmentVolume = Poumon_Homo.Sub(LargestPTV.Margin(0.00)).And(BODY);
+
+			Structure PoumonHomo_PTV_1cm = ss.AddStructure("Organ", "z_PoumH-PTV+1 ");
+			PoumonHomo_PTV_1cm.SegmentVolume = Poumon_Homo.Margin(0.00);
+			PoumonHomo_PTV_1cm.SegmentVolume = Poumon_Homo.Sub(LargestPTV.Margin(10.00)).And(BODY);
+
+			Structure Poumons_LargestPTV = ss.AddStructure("Avoidance", "z_Poumons-PTV ");
+			Poumons_LargestPTV.SegmentVolume = Poumons.Margin(0.00);
+			Poumons_LargestPTV.SegmentVolume = Poumons.Sub(LargestPTV).And(BODY);
+		}
+		catch (Exception ex)
+		{
+			MessageBox.Show("Une erreur est survenue : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+		#endregion
+	}
+	if (UserChoice == "POSTATE")
+	{
+
+	}
+	if (UserChoice == "ORL")
+	{
+
+	}
+	if (UserChoice == "PELVIS")
+	{
+
+	}
+	if (UserChoice == "RECTUM")
+	{
+
+	}
+	if (UserChoice == "ENCEPHALE")
+	{
+
+	}
+	if (UserChoice == "SEIN")
+	{
+
+	}
+	if (UserChoice == "METASTASTE")
+	{
+
+	}
+}*/
