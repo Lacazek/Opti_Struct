@@ -1,6 +1,6 @@
 # Opti_Struct
 
-The aim of this code is to provide a solution to automaticaly create optimisation structure. According to txt file, users can decide to create his own structure according to the following vocabulary:
+The aim of this code is to provide a solution to automatically creates optimisation structure. According to txt file, users can decide to create his own structure according to the following vocabulary:
 
 exemple : PTV - ITV : PTV - ITV
 
