@@ -3,6 +3,7 @@
 The aim of this code is to provide a solution to automaticaly create optimisation structure. According to txt file, users can decide to create his own structure according to the following vocabulary:
 
 exemple : PTV - ITV : PTV - ITV
+
 : --> on the left side; this is the name of the structure
 : --> on the right side ; this the operation
 PTV --> this the first structure
