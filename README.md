@@ -5,9 +5,13 @@ The aim of this code is to provide a solution to automaticaly create optimisatio
 exemple : PTV - ITV : PTV - ITV
 
 : --> on the left side; this is the name of the structure
+
 : --> on the right side ; this the operation
+
 PTV --> this the first structure
+
 - --> this the operator
+- 
 ITV --> this the second structure
 
 There are 5 operator :
