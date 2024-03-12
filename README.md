@@ -10,8 +10,8 @@ exemple : PTV - ITV : PTV - ITV
 
 PTV --> this the first structure
 
-- --> this the operator
-- 
+"-" --> this the operator
+  
 ITV --> this the second structure
 
 There are 5 operator :
