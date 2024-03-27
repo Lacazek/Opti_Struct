@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,39 +14,47 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using VMS.TPS.Common.Model.API;
+using System.IO;
+using System.Diagnostics;
 
 namespace Structure_optimisation
 {
-	/// <summary>
-	/// Logique d'interaction pour UserInterface.xaml
-	/// </summary>
-	public partial class UserInterface : Window
-	{
-		private UserInterfaceModel _model;
+    /// <summary>
+    /// Logique d'interaction pour UserInterface.xaml
+    /// </summary>
+    public partial class UserInterface : Window
+    {
+        private UserInterfaceModel _model;
+        private readonly string _fisherMan;
 
-		public UserInterface(StructureSet ss)
-		{
-			InitializeComponent();
-			_model = new UserInterfaceModel(ss);
-			DataContext = _model;
-			OK_Button.Visibility = Visibility.Collapsed;
+        public UserInterface(StructureSet ss)
+        {
+            InitializeComponent();
+            _model = new UserInterfaceModel(ss);
+            DataContext = _model;
+            OK_Button.Visibility = Visibility.Collapsed;
             foreach (string item in _model.Localisation)
             {
                 Box_Loc.Items.Add(item);
             }
+            _fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
         }
 
-		internal GetFile File
-		{
-			get { return _model.File; }
-		}
+        internal GetFile File
+        {
+            get { return _model.File; }
+        }
+        internal void isOpened(bool test)
+        {
+            _model.isOpened(test);
+        }
 
-		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             if (Box_Loc.SelectedItem != null)
-				OK_Button.Visibility = Visibility.Visible;
-			else
-				OK_Button.Visibility = Visibility.Collapsed;
+                OK_Button.Visibility = Visibility.Visible;
+            else
+                OK_Button.Visibility = Visibility.Collapsed;
         }
 
 
@@ -55,15 +64,16 @@ namespace Structure_optimisation
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-			try
-			{
+            try
+            {
                 _model.UserFile = (string)Box_Loc.SelectedItem;
                 this.Close();
-			}
-			catch (Exception ex) { 
-				MessageBox.Show(ex.Message);
-				this.Close();
-			}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                this.Close();
+            }
         }
     }
 }

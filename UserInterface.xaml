@@ -12,5 +12,10 @@
         <Button x:Name="OK_Button" Content="OK" HorizontalAlignment="Left" Height="32" Margin="124,185,0,0" VerticalAlignment="Top" Width="118" Click="Button_Click"/>
         <TextBlock HorizontalAlignment="Left" Height="51" Margin="42,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" TextAlignment="Center" FontSize="16"><Run Language="fr-fr" Text="Création des volumes d'optimisation de façon automatique"/></TextBlock>
         <Button Content="Close" HorizontalAlignment="Left" Height="32" Margin="355,185,0,0" VerticalAlignment="Top" Width="116" Background="#FFFF2727" Click="Button_Close"/>
+        <Image x:Name="FisherMan4" HorizontalAlignment="Left" Height="162" Margin="355,10,0,0" VerticalAlignment="Top" Width="152" Source="{Binding Path =_fisherMan}" IsEnabled="False">
+            <Image.OpacityMask>
+                <ImageBrush ImageSource="{Binding Path=_fisherMan}"/>
+            </Image.OpacityMask>
+        </Image>
     </Grid>
 </Window>
