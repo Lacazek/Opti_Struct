@@ -1,0 +1,10 @@
+z_OV_vessie : Vessie & PTV2
+test :
+test2 : PTV ! 20
+test : PTV 2 | PTV 1
+test : PTV 2 | PTV 1 & test | Vessie
+test3 : test2 ! 40
+test3 : test3 # test2 
+z_parotide_D_opt : parotide D # test
+z_parotide_G_opt : parotide G # test
+test : ~

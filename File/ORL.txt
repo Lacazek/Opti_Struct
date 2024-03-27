@@ -1,0 +1,13 @@
+z_PTV_tot : PTV HR1 | PTV HR2 | PTV BR1 | PTVBR2 
+Z_PTV_HR_tot : PTV HR1 | PTV HR2
+z_PTV_BR_tot : PTV BR1 | PTV BR2
+test : PTV HR tot ! 15
+test : PTV HR tot  & test
+z_PTV_BR_loin : z_PTV_BR_tot # test
+z_moelle+5 : moelle ! 5
+z_moelle+10 : moelle ! 10
+z_opt post :
+test : z_PTV_HR_tot ! 3
+z_parotide_D_opt : parotide D # test
+z_parotide_G_opt : parotide G # test
+test : /

@@ -1,0 +1,28 @@
+Grangan,simone
+Reynaud, brigitte
+
+PTV CMI : ctvncmid ! 7
+PTV Sein : ctv sein d ! 7
+PTV Sein : ptv sein 
+PTV Susclav : ctv nsusclav d ! 7
+PTV Sousclav : ctvnsousclav d ! 7
+PTV Boost : ctv litufb ! 7
+PTV Axil D : ctv naxil_d ! 7
+PTV total : ptv cmi | ptv sein | ptv axil d
+PTV 46 : ptv susclav | ptv sousclav
+PTV 50 : ptv cmi | ptv sein
+z_ring Boost : ptv boost ! 10
+test : ptv boost ! 3
+test : ~
+z_ring Boost : z_ring boost # test
+z_ring 46 : ptv sein ! 5 
+test : ptv sein ! 25
+z_ring 46 : z_ring 46 # test
+test : ~
+z_ring 50 : ptv sein ! 25 
+test : ptv sein ! 52
+z_ring 50 : z_ring 50 # test
+test : ~
+test : ptv total  ! 5
+z_Coeur opt : oarcoeur # test
+test : ~

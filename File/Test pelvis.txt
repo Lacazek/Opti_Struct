@@ -1,0 +1,8 @@
+z_PTV-OV : ptv t | ptv n # vessie # rectum
+PTV TOT : ptv t | ptv n
+z_PTVN proche : ctv t ! 15.00
+z_PTVN proche : z_ptvn proche # ctv t
+z_PTVN proche : z_ptvn proche & ptv n
+z_PTVN loin : ptv tot # z_ptvn proche # ctv t
+z_test : ptv tot ! 5
+z_test : /
