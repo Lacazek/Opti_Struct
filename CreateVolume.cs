@@ -216,7 +216,7 @@ namespace Structure_optimisation
             }
             MessageBox.Show("Les structures ont été créées.\nMerci de les vérifier !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             Message = $"\nFin du programme : {DateTime.Now}";
-            Message = $"************************Script terminé********************************";
+            Message = $"*****************Script terminé*****************";
             srf.Close();
         }
 
