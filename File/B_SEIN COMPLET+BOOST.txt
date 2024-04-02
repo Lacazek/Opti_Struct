@@ -1,0 +1,32 @@
+externe +7mm : contour externe ! 7
+externe -7mm : contour externe ! -7
+PTV CMI : ctvncmid ! 7
+PTV Sein D : ctv sein d ! 7
+test : contour externe ! 5
+z_CTV seinD -5 : ctv sein d # test
+z_CTV seinG -5 : ctv sein d # test
+PTV Sein G : ctv sein g ! 7
+z_PTV seinD -5 : ptv sein D # test
+PTV Sein G : ctv sein g ! 7
+z_PTV seinG -5 : ptv sein G # test
+test : /
+PTV Susclav : ctv nsusclav d ! 7
+PTV Sousclav : ctvnsousclav d ! 7
+PTV Boost : ctv litufb ! 7
+PTV Axil D : ctv naxil_d ! 7
+PTV total : ptv cmi | ptv sein | ptv axil d | ptv susclav | ptv sousclav
+PTV 50 : ptv cmi | ptv sein | ptv axil d
+PTV 46 : ptv susclav | ptv sousclav
+z_ring Boost : ptv boost ! 10
+test : ptv boost ! 3
+z_ring Boost : z_ring boost # test
+test : /
+test : ptv sein ! 3 
+z_ring 1 : ptv sein ! 25
+z_ring 1 : z_ring 1 # test
+z_ring 2 : ptv sein ! 35
+z_ring 2 : ptv sein # z_ring1
+test : /
+test : ptv cmi  ! 3
+z_Coeur opt : oarcoeur # test
+test : /

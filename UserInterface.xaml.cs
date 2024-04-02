@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using VMS.TPS.Common.Model.API;
-using System.IO;
-using System.Diagnostics;
 
 namespace Structure_optimisation
 {
@@ -25,7 +11,6 @@ namespace Structure_optimisation
     public partial class UserInterface : Window
     {
         private UserInterfaceModel _model;
-        private readonly string _fisherMan;
 
         public UserInterface(StructureSet ss)
         {
@@ -37,8 +22,7 @@ namespace Structure_optimisation
             {
                 Box_Loc.Items.Add(item);
             }
-            _fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
-        }
+		}
 
         internal GetFile File
         {

@@ -1,0 +1,17 @@
+z_PTV-ITV : ptv # itv
+Z_ITV : itv ! 0
+z_ring1 : ptv ! 5
+z_ring2 : ptv ! 10
+z_ring3 : ptv ! 30
+z_ring3 : z_ring3 # z_ring2
+z_ring2 : z_ring2 # z_ring1
+z_ring1 : z_ring1 # ptv
+test : ptv ! 3
+z_paroi opt : paroi thoracique # test
+test : /
+z_Poumons-PTV : poumons # ptv
+z_PoumonD-PTV : poumon d # ptv
+z_PoumonG-PTV : poumon g # ptv
+z_coeur-PTV : coeur # ptv
+PRV Moelle +2 : moelle ! 2
+PRV Moelle +5 : moelle ! 5

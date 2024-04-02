@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Structure_optimisation;
 using VMS.TPS.Common.Model.API;
 using System.IO;
-using System.Xml.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Runtime.InteropServices;
+using System.Reflection;
 
 
 namespace Structure_optimisation
@@ -20,7 +13,8 @@ namespace Structure_optimisation
     {
         private string _userChoice;
         private string _rename;
-        private GetFile _file;
+		private readonly string _fisherMan;
+		private GetFile _file;
         private List<string> _localisation;
         private StreamWriter _logFile;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -31,7 +25,8 @@ namespace Structure_optimisation
             _rename = string.Empty;
             _file = new GetFile(ss);
             _localisation = new List<string>();
-            FillList();
+			_fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
+			FillList();
             _logFile = new StreamWriter("LogFile.txt", true);
             _file.MessageChanged += MessageChanged;
             Message = $"\n**********************************";
@@ -51,6 +46,7 @@ namespace Structure_optimisation
             {
                 _localisation.Add(Path.GetFileNameWithoutExtension(item));
             }
+            _localisation.Sort();
         }
         internal string UserChoice
         {
