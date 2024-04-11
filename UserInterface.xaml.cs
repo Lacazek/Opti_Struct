@@ -22,15 +22,15 @@ namespace Structure_optimisation
             {
                 Box_Loc.Items.Add(item);
             }
-		}
+        }
 
         internal GetFile File
         {
             get { return _model.File; }
         }
-        internal void isOpened(bool test)
+        internal void IsOpened(bool test)
         {
-            _model.isOpened(test);
+            _model.IsOpened(test);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -58,6 +58,10 @@ namespace Structure_optimisation
                 MessageBox.Show(ex.Message);
                 this.Close();
             }
+        }
+        internal string Fisherman
+        {
+            get { return _model.Fisherman; }
         }
     }
 }

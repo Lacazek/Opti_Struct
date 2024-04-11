@@ -56,6 +56,10 @@ namespace Structure_optimisation
         {
             get { return _rename; }
         }
+        internal string Fisherman
+        {
+            get { return _fisherMan; }
+        }
         internal GetFile File
         {
             get { return _file; }
@@ -83,7 +87,7 @@ namespace Structure_optimisation
                 OnPropertyChanged(nameof(_file.Message));
             }
         }
-        internal void isOpened(bool test)
+        internal void IsOpened(bool test)
         {
             if (test == true)
             {
