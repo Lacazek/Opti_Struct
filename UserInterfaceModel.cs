@@ -27,7 +27,7 @@ namespace Structure_optimisation
             _localisation = new List<string>();
 			_fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
 			FillList();
-            _logFile = new StreamWriter("LogFile.txt", true);
+            _logFile = new StreamWriter("Log.txt", true);
             _file.MessageChanged += MessageChanged;
             Message = $"\n**********************************";
             Message = $"Debut de programme : {DateTime.Now}";

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Opti_Struct;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Structure_optimisation
         private string _message;
         public event EventHandler<string> MessageChanged;
         private int verbose;
+        private Struct_dictionnary _dictionnary;
 
         public CreateVolume(StructureSet ss)
         {
@@ -38,7 +40,7 @@ namespace Structure_optimisation
                 '/' // Suppression structure
 				//'!' // inversion
 				};
-
+            _dictionnary = new Struct_dictionnary (_ss);
             _structure = new Dictionary<char, Action<Structure, Structure>>()
 {
     { filterTags[0], (arg1, arg2) => arg1.SegmentVolume = arg1.Or(arg2)},  // Or est la totalité
@@ -60,6 +62,7 @@ namespace Structure_optimisation
             {
                 name = line.Split(':')[0].Trim();
                 line = line.Split(':')[1].Trim();
+
                 nSplit.Clear();
                 indexeur.Clear();
                 _operation.Clear();
@@ -67,7 +70,6 @@ namespace Structure_optimisation
                 Message = $"Travail sur la structure {name} en cours ....";
                 try
                 {
-
                     foreach (char key in filterTags)
                     {
                         if (name.ToLower().Contains("verbose"))
@@ -77,11 +79,20 @@ namespace Structure_optimisation
                         }
                         if (line.Contains(key))
                         {
+
+                            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                             if (key == filterTags[4]) // cas x+marge
                             {
                                 string[] V = line.Split(filterTags[4]);
                                 float floatValue = float.Parse(V[1]);
 
+                                if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(V[0]))) // modif
+                                {
+                                    Message = $"Mauvaise nomenclature sur la structure {V[0]} \n";
+                                    V[0] = _dictionnary.SearchStruct(_ss,name);
+                                    Message = $"Modification du nom de la structure {line.Split(filterTags[4])[0]} par {V[0]} \n";
+                                }
                                 // test REGEX 
                                 //Structure Struct1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(V[0].Trim())).SingleOrDefault();
                                 //Structure Struct1 = _ss.Structures.FirstOrDefault(x => Regex.IsMatch(x.Id, string.Join(".*", V[0].Trim().Select(c => Regex.Escape(c.ToString()))), RegexOptions.IgnoreCase));                               
@@ -104,7 +115,8 @@ namespace Structure_optimisation
                                 Message = $"Marge de {floatValue} mm sur la structure : {Struct1.Id}\n";
                             }
 
-                            // OK
+                            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                             else if (key != filterTags[4] && key != filterTags[5] && key != filterTags[6] && key != filterTags[7]) // toutes les autres opérations
                             {
                                 string[] _parts = line.Split(filterTags, StringSplitOptions.RemoveEmptyEntries);
@@ -113,8 +125,18 @@ namespace Structure_optimisation
                                 {
                                     foreach (string part in _parts)
                                     {
-                                        nSplit.Add(part.Trim());
+                                        string part_corr = part; // modif
+
+                                        if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(part)))  // modif
+                                        {
+                                            Message = $"Mauvaise nomenclature sur la structure {part} \n";
+                                            part_corr = _dictionnary.SearchStruct(_ss,part); // modif
+                                            if (part_corr != part)
+                                                Message = $"Modification du nom de la structure {part} par {part_corr} \n";
+                                        }
+                                        nSplit.Add(part_corr.Trim()); // modif
                                     }
+
                                     foreach (char c in line)
                                     {
                                         if (Array.IndexOf(filterTags, c) != -1)
@@ -168,9 +190,25 @@ namespace Structure_optimisation
                                     Message = $"Operation sur les structures : {_StructureInter1.Id} et {_StructureInter2.Id}\n";
                                     break;
                                 }
+
+                                //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                                 else // 2 structures
                                 {
                                     string[] V = line.Split(key);
+
+                                    if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(V[0])))  // modif
+                                    {
+                                        Message = $"Mauvaise nomenclature sur la structure {V[0]} \n";
+                                        V[0] = _dictionnary.SearchStruct(_ss,V[0]);
+                                    }
+
+                                    if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(V[1])))  // modif
+                                    {
+                                        Message = $"Mauvaise nomenclature sur la structure {V[1]} \n";
+                                        V[1] = _dictionnary.SearchStruct(_ss,V[1]);
+                                    }
+
                                     Structure Struct1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(V[0].Trim().ToLower())).SingleOrDefault();
                                     Structure Struct2 = _ss.Structures.Where(x => x.Id.ToLower().Equals(V[1].Trim().ToLower())).SingleOrDefault();
                                     if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(name.ToLower())))
@@ -189,16 +227,20 @@ namespace Structure_optimisation
                                     Message = $"Operation sur les structures : {Struct1.Id} et {Struct2.Id}\n";
                                 }
                             }
+
+                            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                             else if (key == filterTags[7])
                             {
-                                // Test REGEX
                                 //_ss.RemoveStructure(_ss.Structures.First(x => x.Id.ToLower().Contains("test")));
-                                //_ss.RemoveStructure(_ss.Structures.FirstOrDefault(x => Regex.IsMatch(x.Id, @"t\s*e?\s*s?\s*t\s*", RegexOptions.IgnoreCase)));
                                 _ss.RemoveStructure(_ss.Structures.FirstOrDefault(x => Regex.IsMatch(x.Id, @"\b[t|té|tè|tê|të]est\b.*?(?!\bintestin\b)", RegexOptions.IgnoreCase)));
                                 Message = $"********** Operation simple **********\nStructure {name} supprimée";
                                 Message = $"Suppression de la structure : {name}\n";
                             }
                         }
+
+                        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                         else if (line.Length == 0) // Créé une structure vide
                         {
                             if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV).*\b)", RegexOptions.IgnoreCase))
@@ -209,6 +251,9 @@ namespace Structure_optimisation
                             Message = $"Ajout de la structure : {name}\n";
                             break;
                         }
+
+                        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
                         else if (Regex.IsMatch(name, @"c\s*o?\s*n\s*t\s*o?(?:u|o)?\s*r\s*\s*e?\s*x\s*t\s*o?\s*r\s*n\s*e?", RegexOptions.IgnoreCase))
                         {
                             /*SearchBodyParameters myParameters = new SearchBodyParameters
@@ -225,13 +270,13 @@ namespace Structure_optimisation
                 {
                     if (verbose >= 1)
                         MessageBox.Show($"Une erreur est survenue sur la structure {name} : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Message = $"Une erreur est survenue sur la structure {name} :\n\n{ex.Message}\n";
+                    Message = $"Une erreur est survenue sur la structure {name} : " + ex.Message;
                 }
-
             }
 
             if (verbose >= 0)
                 MessageBox.Show("Les structures ont été créées.\nMerci de les vérifier !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+
             Message = $"\nFin du programme : {DateTime.Now}";
             Message = $"*****************Script terminé*****************";
             srf.Close();

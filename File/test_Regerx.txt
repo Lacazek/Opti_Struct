@@ -1,0 +1,42 @@
+verbose : 1
+z_PTV_BR_tot1 : ptv br ! 0
+z_PTV_BR_tot2 : ptv br 1 | ptv br 2
+z_PTV_BR_tot3 : ptv b r1 | p t v b r 2
+z_PTV_BR_tot4 : ptv  br1 | p tv br2
+z_PTV_BR_tot5 : ptvbr1 | pt vbr2
+z_PTV_HR_tot1 : ptv hr ! 0
+z_PTV_HR_tot : ptv hr1 | ptv hr2
+externe +7mm1 : con tour externe ! 7
+externe +7mm 2: con tou externe ! 8
+externe +7mm3: con tour externe ! 9
+externe +7mm4 : c on tour ext erne ! 10
+externe +7mm5 : con tour ex te rn e ! 11
+test : z_PTV_HR_tot ! 3
+z_parotide_D_opt : parotide d # test
+z_parotide_G_opt : parotide g # test
+test : /
+PRV Moelle +2 : moelle ! 2
+PRV Moelle +3 : moelle ! 3
+PRV Moelle +5 : moelle ! 5
+PRV Moelle +10 : moelle ! 10
+z_Trac/Oeso opt : oe sophage | trache 
+z_Trac/Oeso opt1 : o e sopha ge | t rachee
+z_Trac/Oeso opt2 : oe sophage | tr ac he
+z_Trac/Oeso opt3 : oe so ph a ge | tr ach e
+PRC TC +2 : tronc cerebral ! 2
+PRV TC +5 : tronc_cerebral ! 5
+PRV TC MAJ : TRONC CEREBRAL ! 10
+PRV TC MAJ2 : TRONC cerebral ! 20
+PRV TC MAJ3 : TRONC_cerebral ! 30
+PRV TC +3 : tronc cerebral ! 3
+PRV TC +10 : tc ! 10
+CTV LITUM1 : ctvlitum !3
+CTV LITUM2 : ctvlitumfb !3
+CTV LITUM3 : ctvlittum !3
+CTV LITUM4 : ctvli tum !3
+CTV LITUM5 : ct vlitum !3
+testOAR1 : oarseind! 5
+testOAR2 : oa rse in d! 5
+testOAR3 : oar_seind! 5
+testOAR4 : OARseind! 5
+testOAR5 : Oa R_sEin d! 5

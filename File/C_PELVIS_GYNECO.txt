@@ -1,15 +1,15 @@
 verbose : 1
 PTV TOT : ptv t | ptv n
-z_OV vessie : vessie & ptv tot
-z_OV rectum : rectum & ptv tot
+z_OV vessie : vessie & ptv t
+z_OV rectum : rectum & ptv t
 z_PTV-OV : ptv t | ptv n # vessie # rectum
-z_Vessie - PTV TOT : vessie # ptv tot
+z_Vessie opt : vessie # ptv t
 test : ptv tot ! 3
-z_Vessie - PTV TOT : z_vessie - ptv tot # test
+z_Vessie opt : z_vessie opt # test
 test : /
-z_Rectum - PTV TOT : rectum # ptv t
+z_Rectum opt : rectum # ptv t
 test : ptv tot ! 3
-z_Rectum - PTV TOT : z_Rectum - PTV TOT # test
+z_Rectum opt : z_rectum opt # test
 test : /
 z_PTVN proche : ptv t ! 15.00
 z_PTVN proche : z_ptvn proche # ptv t
