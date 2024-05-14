@@ -26,7 +26,6 @@ namespace Structure_optimisation
             _path = Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "File");
             _userPath = string.Empty;
             _createVolume.MessageChanged += VolumeMessageChanged;
-
         }
 
         internal void CreateUserFile()

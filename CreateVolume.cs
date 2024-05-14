@@ -1,6 +1,7 @@
 ﻿using Opti_Struct;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,7 +12,7 @@ using VMS.TPS.Common.Model.API;
 
 namespace Structure_optimisation
 {
-    internal class CreateVolume
+    internal class CreateVolume 
     {
         private string name;
         private readonly char[] filterTags;
@@ -40,7 +41,7 @@ namespace Structure_optimisation
                 '/' // Suppression structure
 				//'!' // inversion
 				};
-            _dictionnary = new Struct_dictionnary (_ss);
+            _dictionnary = new Struct_dictionnary(_ss);
             _structure = new Dictionary<char, Action<Structure, Structure>>()
 {
     { filterTags[0], (arg1, arg2) => arg1.SegmentVolume = arg1.Or(arg2)},  // Or est la totalité
@@ -48,6 +49,12 @@ namespace Structure_optimisation
 	{ filterTags[2], (arg1, arg2) => arg1.SegmentVolume = arg1.Sub(arg2)}, // sub est la soustraction et conserve que Arg1
 	{ filterTags[3], (arg1, arg2) => arg1.SegmentVolume = arg1.Xor(arg2)}, // Xor est l'union
 };
+            _dictionnary.MessageChanged += DictionnaryMessageChanged;
+        }
+
+        private void _dictionnary_MessageChanged(object sender, string e)
+        {
+            throw new NotImplementedException();
         }
 
         internal void CreationVolume(string _userFileChoice)
@@ -90,8 +97,7 @@ namespace Structure_optimisation
                                 if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(V[0]))) // modif
                                 {
                                     Message = $"Mauvaise nomenclature sur la structure {V[0]} \n";
-                                    V[0] = _dictionnary.SearchStruct(_ss,name);
-                                    Message = $"Modification du nom de la structure {line.Split(filterTags[4])[0]} par {V[0]} \n";
+                                    V[0] = _dictionnary.SearchStruct(V[0]);
                                 }
                                 // test REGEX 
                                 //Structure Struct1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(V[0].Trim())).SingleOrDefault();
@@ -111,7 +117,8 @@ namespace Structure_optimisation
                                 myStruct.SegmentVolume = Struct1.Margin(floatValue);
                                 if (!name.ToLower().Contains("externe"))
                                     myStruct.SegmentVolume = myStruct.And(BODY);
-                                Message = $"********** Operation simple **********\nStructure {name} créée";
+                                Message = $"********** Operation simple **********\n";
+                                Message = $"Structure {name} créée\n";
                                 Message = $"Marge de {floatValue} mm sur la structure : {Struct1.Id}\n";
                             }
 
@@ -130,7 +137,7 @@ namespace Structure_optimisation
                                         if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(part)))  // modif
                                         {
                                             Message = $"Mauvaise nomenclature sur la structure {part} \n";
-                                            part_corr = _dictionnary.SearchStruct(_ss,part); // modif
+                                            part_corr = _dictionnary.SearchStruct(part); // modif
                                             if (part_corr != part)
                                                 Message = $"Modification du nom de la structure {part} par {part_corr} \n";
                                         }
@@ -186,7 +193,8 @@ namespace Structure_optimisation
                                     }
                                     _StructureInter.SegmentVolume = _StructureInter.And(BODY);
                                     //_StructureInter.VMS.TPS.Common.Model.API.Color = "blue";
-                                    Message = $"********** Operation multiple **********\nStructure {name} créée";
+                                    Message = $"********** Operation multiple **********\n";
+                                    Message = $"Structure {name} créée\n";
                                     Message = $"Operation sur les structures : {_StructureInter1.Id} et {_StructureInter2.Id}\n";
                                     break;
                                 }
@@ -200,13 +208,13 @@ namespace Structure_optimisation
                                     if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(V[0])))  // modif
                                     {
                                         Message = $"Mauvaise nomenclature sur la structure {V[0]} \n";
-                                        V[0] = _dictionnary.SearchStruct(_ss,V[0]);
+                                        V[0] = _dictionnary.SearchStruct(V[0]);
                                     }
 
                                     if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(V[1])))  // modif
                                     {
                                         Message = $"Mauvaise nomenclature sur la structure {V[1]} \n";
-                                        V[1] = _dictionnary.SearchStruct(_ss,V[1]);
+                                        V[1] = _dictionnary.SearchStruct(V[1]);
                                     }
 
                                     Structure Struct1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(V[0].Trim().ToLower())).SingleOrDefault();
@@ -272,6 +280,7 @@ namespace Structure_optimisation
                         MessageBox.Show($"Une erreur est survenue sur la structure {name} : " + ex.Message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
                     Message = $"Une erreur est survenue sur la structure {name} : " + ex.Message;
                 }
+                Message = "\n";
             }
 
             if (verbose >= 0)
@@ -282,6 +291,7 @@ namespace Structure_optimisation
             srf.Close();
         }
 
+        #region
         internal string Message
         {
             get { return _message; }
@@ -291,9 +301,14 @@ namespace Structure_optimisation
                 OnMessageChanged();
             }
         }
+        private void DictionnaryMessageChanged(object sender, string e)
+        {
+            Message = e;
+        }
         protected virtual void OnMessageChanged()
         {
             MessageChanged?.Invoke(this, _message);
         }
+        #endregion
     }
 }

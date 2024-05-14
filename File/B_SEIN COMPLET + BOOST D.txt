@@ -1,18 +1,12 @@
-verbose : 1
+verbose : 0
 externe +7mm : contour externe ! 7
 externe -7mm : contour externe ! -7
-PTV Sein D : ctv sein_d ! 7
 PTV Sein D : ctv sein d ! 7
-PTV Sousclav D : ctvnsousclav_d ! 7
-PTV Sousclav D : ctvnsousclav d ! 7
-PTV Susclav D : ctv nsusclav d ! 7
-PTV Susclav D : ctv nsusclav_d ! 7
-PTV Axil D : ctv naxil_d ! 7
-PTV Axil D : ctv naxil d ! 7
+PTV Susclav D : ctv n sus clav d ! 7
+PTV Sousclav D : ctv n sous clav d ! 7
+PTV Axil D : ctv n axil d ! 7
 PTV CMI D : ctv cmi d ! 7
-PTV CMI D : ctv cmi_d ! 7
-PTV CMI D : ctvncmid ! 7
-PTV Boost : ctv litufb ! 7
+PTV Boost : ctv lit tum ! 7
 z_ring Boost : ptv boost ! 10
 test : ptv boost ! 3
 z_ring Boost : z_ring boost # test
@@ -22,10 +16,10 @@ z_CTV seinD -5 : ctv sein d & test
 z_PTV seinD -5 : ptv sein d & test
 test : /
 PTV total : ptv sein d ! 0
+PTV total : ptv total | ptv susclav d
+PTV total : ptv total | ptv sousclav d
 PTV total : ptv total | ptv cmi d
 PTV total : ptv total | ptv axil d
-PTV total : ptv total | ptv susclav d 
-PTV total : ptv total | ptv sousclav d
 PTV 50 : ptv sein d ! 0
 PTV 50 : ptv 50 | ptv cmi d
 PTV 50 : ptv 50 | ptv axil d

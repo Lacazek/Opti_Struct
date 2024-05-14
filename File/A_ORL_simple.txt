@@ -26,8 +26,8 @@ test : z_ptv_tot ! 3
 z_parotide_D_opt : parotide d # test
 z_parotide_G_opt : parotide g # test
 test : /
-test : z_ptv_br_tot ! 3
-z_Trac/Oeso opt : oesophage | trachee
+test : seing ! 3
+z_Trac/Oeso opt : oesophage | s e i n g
 z_Trac/Oeso opt :z_trac/oeso opt # test
 test : /
 z_opt post :

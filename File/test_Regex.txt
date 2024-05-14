@@ -1,0 +1,42 @@
+verbose : 0
+externe +7mm1 : con tour externe ! 7
+externe +7mm 2: con tou rexterne ! 8
+externe +7mm3: con tour externe ! 9
+externe +7mm4 : c on tour ext erne ! 10
+externe +7mm5 : con tour ex te rn e ! 11
+test : z_PTV_HR_tot ! 3
+z_parotide_D_opt : parotide d # test
+z_parotide_G_opt1 : parotide g # test
+z_parotide_G_opt2 : parotide g !5
+z_parotide_G_opt3 : parotide g # z_parotide_G_opt2
+test : /
+PRV Moelle +2 : moelle ! 2
+PRV Moelle +10 : moelle ! 10
+PRV Moelle +5 : moelle ! 5
+PRV Moelle +20 : oar_moelle ! 20
+test moelle nom ok : oar moelle ! 20
+PRV Moelle opt : PRV Moelle +10 # PRV Moelle +5
+PRV Moelle union : PRV Moelle +10 ^ coeur
+PRV Moelle inters : PRV Moelle +10 & PRV Moelle +5
+z_Trac/Oeso opt : oe sophage | trache 
+z_Trac/Oeso opt1 : o e sopha ge | t rachee
+PRC TC +2 : tronc cerebral ! 2
+PRV TC +5 : tronc_cerebral ! 5
+PRV TC MAJ : TRONC CEREBRAL ! 10
+PRV TC MAJ2 : TRONC cerebral ! 20
+PRV TC MAJ3 : TRONC_cerebral ! 30
+PRV TC +3 : tronc cerebral ! 3
+PRV TC +10 : tc ! 10
+CTV LITUM1 : ctvlitum !3
+CTV LITUM2 : ctvlitumfb !3
+CTV LITUM3 : ctvlittum !3
+CTV LITUM4 : ctvli tum !3
+CTV LITUM5 : ct vlitum !3
+testOAR2 : oa rse in d! 5
+testOAR3 : oar_seind! 5
+testOAR4 : OARseind! 5
+testOAR5 : Oa R_sEin d! 5
+testOARCOEUR1 : Oarcoeur ! 2
+testOARCOEUR2 : coeur ! 2
+test ctv : ctv sein g !10
+test ctv 2 : ctv sein d ! 15
