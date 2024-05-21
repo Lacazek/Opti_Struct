@@ -40,3 +40,9 @@ testOARCOEUR1 : Oarcoeur ! 2
 testOARCOEUR2 : coeur ! 2
 test ctv : ctv sein g !10
 test ctv 2 : ctv sein d ! 15
+gtv n test : gtv n ! 10
+gtv n test2 : gtv_n ! 10
+gtv n test3 : gtvn+ ! 10
+gtv n test4 : gtv n+ ! 10
+gtv test5 : gtv! 10
+gtv test6 : GtV ! 10

@@ -59,9 +59,5 @@ namespace Structure_optimisation
                 this.Close();
             }
         }
-        internal string Fisherman
-        {
-            get { return _model.Fisherman; }
-        }
     }
 }

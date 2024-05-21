@@ -12,7 +12,7 @@
         <Button x:Name="OK_Button" Content="OK" HorizontalAlignment="Left" Height="32" Margin="124,309,0,0" VerticalAlignment="Top" Width="118" Click="Button_Click"/>
         <TextBlock HorizontalAlignment="Left" Height="51" Margin="41,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" TextAlignment="Center" FontSize="16"><Run Language="fr-fr" Text="Création des volumes d'optimisation de façon automatique"/></TextBlock>
         <Button Content="Close" HorizontalAlignment="Center" Height="32" Margin="0,309,0,0" VerticalAlignment="Top" Width="116" Background="#FFFF2727" Click="Button_Close"/>
-        <Image x:Name="FisherMan" HorizontalAlignment="Left" Height="280" Margin="490,74,0,0" VerticalAlignment="Top" Width="252" Source="{Binding Fisherman}" RenderTransformOrigin="0.542,0.507" IsEnabled="False"/>
+        <Image x:Name="FisherMan" HorizontalAlignment="Left" Height="221" Margin="423,81,0,0" VerticalAlignment="Top" Width="285" RenderTransformOrigin="0.542,0.507"  Source="{Binding FisherMan}" IsEnabled="False"/>
         <Rectangle HorizontalAlignment="Center" Height="74" Stroke="Black" VerticalAlignment="Top" Width="800" RenderTransformOrigin="1.556,0.503" Fill="#FF95D1FF" Margin="0,360,0,0">
             <Rectangle.RenderTransform>
                 <TransformGroup>

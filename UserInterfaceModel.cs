@@ -4,6 +4,9 @@ using System.ComponentModel;
 using VMS.TPS.Common.Model.API;
 using System.IO;
 using System.Reflection;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 
 namespace Structure_optimisation
@@ -92,6 +95,7 @@ namespace Structure_optimisation
             if (test == true)
             {
                 _logFile.WriteLine($"\nFichier Log fermé");
+                _logFile.WriteLine($"\n**************************************************************************************************************");
                 _logFile.Close();
                 }
         }

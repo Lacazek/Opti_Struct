@@ -128,19 +128,20 @@ namespace Opti_Struct
         {
 
             ///////////////////////////////////////////////////////////////////////////// GTV /////////////////////////////////////////////////////////////////////////////
-            // ORL
-            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*n\s*(?:\+|\s*\+)?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)g\s*t\s*v\s*n\s*(?:\+|\s*\+)?", RegexOptions.IgnoreCase))?.Id ?? "");
-            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*b\s*r(?:\s*\*\s*[12]|\s*\b)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bg\s*t\s*v\s*b\s*r(?:\s*\*\s*[12]|\s*\b)", RegexOptions.IgnoreCase))?.Id ?? "");
-            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*h\s*r(?:\s*\*\s*[12]|\s*\b)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bg\s*t\s*v\s*h\s*r(?:\s*\*\s*[12]|\s*\b)", RegexOptions.IgnoreCase))?.Id ?? "");
-            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*n\s*g(?:\s*1|\s*2|\s*)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)g\s*t\s*v\s*n\s*g(?:\s*1|\s*2|\s*)", RegexOptions.IgnoreCase))?.Id ?? "");
-            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*n\s*d(?:\s*1|\s*2|\s*)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)g\s*t\s*v\s*n\s*d(?:\s*1|\s*2|\s*)", RegexOptions.IgnoreCase))?.Id ?? "");
+//OK            // ORL
+            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*[_\s]*n\s*[_\s]*(?:\+|\s*\+)?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)g\s*t\s*v\s*[_\s]*n\s*[_\s]*(?:\+|\s*\+)?", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*[_\s]*b\s*r*[_\s]*(?:\s*\*\s*[1|2]|\s*\b)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bg\s*t\s*v\s*[_\s]*b\s*r*[_\s]*(?:\s*\*\s*[1|2]|\s*\b)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*[_\s]*h\s*r*[_\s]*(?:\s*\*\s*[1|2]|\s*\b)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bg\s*t\s*v\s*[_\s]*h\s*r*[_\s]*(?:\s*\*\s*[1|2]|\s*\b)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*[_\s]*n\s*[_\s]*g*[_\s]*(?:\s*1|\s*2|\s*)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)g\s*t\s*v\s*[_\s]*n\s*[_\s]*g*[_\s]*(?:\s*1|\s*2|\s*)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bg\s*t\s*v\s*[_\s]*n\s*[_\s]*d*[_\s]*(?:\s*1|\s*2|\s*)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)g\s*t\s*v\s*[_\s]*n\s*[_\s]*d*[_\s]*(?:\s*1|\s*2|\s*)", RegexOptions.IgnoreCase))?.Id ?? "");
 
             ///////////////////////////////////////////////////////////////////////////// CTV /////////////////////////////////////////////////////////////////////////////
 //OK          // Sein
 
-           _allStruct.Add(@"(?i)\bc\s*t\s*v\s*c\s*m\s*i\s*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)c\s*t\s*v\s*c\s*m\s*i\s*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
-           _allStruct.Add(@"(?i)\bc\s*t\s*v\s*s\s*e\s*i\s*n\s*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)c\s*t\s*v\s*s\s*e\s*i\s*n\s*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
-           _allStruct.Add(@"(?i)\bc\s*t\s*v\s*(?:n\s*)?(?:s\s*o\s*u\s*s\s*)c\s*l\s*a\s*v\s*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)c\s*t\s*v\s*(?:n\s*)?(?:s\s*o\s*u\s*s\s*)c\s*l\s*a\s*v\s*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+           _allStruct.Add(@"(?i)\bc\s*t\s*v\s*[_\s]*c\s*m\s*i\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)c\s*t\s*v\s*[_\s]*c\s*m\s*i\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+           _allStruct.Add(@"(?i)\bc\s*t\s*v\s*[_\s]*s\s*e\s*i\s*n\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)c\s*t\s*v\s*[_\s]*s\s*e\s*i\s*n\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+           _allStruct.Add(@"(?i)\bc\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*o\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)c\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*o\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+           _allStruct.Add(@"(?i)\bc\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)c\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
            _allStruct.Add(@"(?i)(?:\bc\s*t\s*v\s*[_\s]*l\s*i\s*t\s*u\s*m(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*u\s*t\s*o\s*m\s*r\s*a\s*l\b|c\s*t\s*v\s*_*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b)",
                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:c\s*t\s*v\s*_*l\s*i\s*t\s*u\s*m(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*u\s*t\s*o\s*m\s*r\s*a\s*l\b|c\s*t\s*v\s*_*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b)", RegexOptions.IgnoreCase))?.Id ?? "");
             _allStruct.Add(@"(?i)\bc\s*t\s*v\s*[_\s]*p\s*a\s*r\s*o\s*i*[_\s]*(?:d|g)\b",
@@ -148,16 +149,16 @@ namespace Opti_Struct
 
             ///////////////////////////////////////////////////////////////////////////// PTV /////////////////////////////////////////////////////////////////////////////
             // ORL
-            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*(?:b\s*r(?:\s*\*\s*\d)?)?(?:h\s*r(?:\s*\*\s*\d)?)?(?:i\s*r)?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*(?:b\s*r(?:\s*\*\s*\d)?)?(?:h\s*r(?:\s*\*\s*\d)?)?(?:i\s*r)?", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*(?:b\s*r*[_\s]*(?:\s*\*\s*\d)?)?(?:h\s*r(?:\s*\*\s*\d)?)?(?:i\s*r)?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*[_\s]*(?:b\s*r*[_\s]*(?:\s*\*\s*\d)?)?(?:h\s*r(?:\s*\*\s*\d)?)?(?:i\s*r)?", RegexOptions.IgnoreCase))?.Id ?? "");
 
             // pelvis
-            _allStruct.Add(@"(?i)(?:\bp\s*t\s*v\s*\s*(?:t|n)(?:\s*[12])?)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:p\s*t\s*v\s*\s*(?:t|n)(?:\s*[12])?)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)(?:\bp\s*t\s*v\s*[_\s]*(?:t|n)(?:\s*[_\s]*[12])?)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:p\s*t\s*v\s*[_\s]*(?:t|n)(?:\s*[_\s]*[12])?)", RegexOptions.IgnoreCase))?.Id ?? "");
 
             // prostate
-            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*(?:1|2|g\s*g|n)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*(?:1|2|g\s*g|n)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*(?:1|2|g[_\s]*g|n)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*[_\s]*(?:1|2|g[_\s]*g|n)", RegexOptions.IgnoreCase))?.Id ?? "");
 
             // Poumons et stéréo
-            _allStruct.Add(@"(?i)(?:i|p)\s*t\s*v(?:\s*(?:1|2|n))?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:i|p)\s*t\s*v(?:\s*(?:1|2|n))?", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\b(?:i|p)\s*t\s*v*[_\s]*(?:\s*(?:1|2|n))?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\b(?:i|p)\s*t\s*v*[_\s]*(?:\s*(?:1|2|n))?", RegexOptions.IgnoreCase))?.Id ?? "");
 
             // Volume cible DAZ (nomenclature n'incluant pas CTV)
             _allStruct.Add(@"(?i)\bp\s*r\s*o\s*s\s*t\s*a\s*t\s*e\s*", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*r\s*o\s*s\s*t\s*a\s*t\s*e\s*", RegexOptions.IgnoreCase))?.Id ?? "");
@@ -218,12 +219,12 @@ namespace Opti_Struct
                 _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\b(?:c\s*h\s*i\s*a\s*s\s*m\s*a\b|\bo\s*a\s*r[_\s]*c\s*h\s*i\s*a\s*s\s*m\s*a\b)", RegexOptions.IgnoreCase))?.Id ?? "");
 
             // Encéphale
-            _allStruct.Add(@"(?i)(?:\bc\s*[ce]\s*r\s*v\s*e\s*a?\s*u?|e\s*n\s*c\s*e\s*p\s*h\s*[ea]\s*l\s*e?|o\s*a\s*r[_\s]*e\s*n\s*c\s*e\s*p\s*h\s*[ea]\s*l\s*e?|o\s*a\s*r[_\s]*c\s*[ce]\s*r\s*v\s*e\s*a?\s*u?)",
-                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:c\s*[ce]\s*r\s*v\s*e\s*a?\s*u?|e\s*n\s*c\s*e\s*p\s*h\s*[ea]\s*l\s*e?)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\b(?:c\s*[ce]\s*r\s*v\s*e\s*a?\s*u?\b|e\s*n\s*c\s*e\s*p\s*h\s*[ea]\s*l\s*e?\b|o\s*a\s*r[_\s]*e\s*n\s*c\s*e\s*p\s*h\s*[ea]\s*l\s*e?\b|o\s*a\s*r[_\s]*c\s*[ce]\s*r\s*v\s*e\s*a?\s*u?\b)",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\b(?:c\s*[ce]\s*r\s*v\s*e\s*a?\s*u?\b|e\s*n\s*c\s*e\s*p\s*h\s*[ea]\s*l\s*e?\b|o\s*a\s*r[_\s]*e\s*n\s*c\s*e\s*p\s*h\s*[ea]\s*l\s*e?\b|o\s*a\s*r[_\s]*c\s*[ce]\s*r\s*v\s*e\s*a?\s*u?\b)", RegexOptions.IgnoreCase))?.Id ?? "");
 
             // Paroi
-            _allStruct.Add(@"(?i)(?:\bp\s*a?\s*r\s*o?\s*i\s*(?:t\s*h\s*o\s*r\s*a\s*c\s*i\s*q\s*u\s*e?)?\|\bp\s*a?\s*r\s*o\s*i\b)",
-                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:p\s*a?\s*r\s*o?\s*i\s*(?:t\s*h\s*o\s*r\s*a\s*c\s*i\s*q\s*u\s*e?)?|p\s*a?\s*r\s*o\s*i)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\b(?:p\s*a?\s*r\s*o?\s*i\s*(?:t\s*h\s*o\s*r\s*a\s*c\s*i\s*q\s*u\s*e?)?\|\bp\s*a?\s*r\s*o\s*i\b)",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\b(?:p\s*a?\s*r\s*o?\s*i\s*(?:t\s*h\s*o\s*r\s*a\s*c\s*i\s*q\s*u\s*e?)?\|\bp\s*a?\s*r\s*o\s*i\b)", RegexOptions.IgnoreCase))?.Id ?? "");
 
 //OK            // Poumons
             _allStruct.Add(@"(?i)\b(?:p\s*o\s*u\s*m\s*o\s*n\s*s?\b|\b*o\s*a\s*r\s*(_?\s*p\s*o\s*u\s*m\s*o\s*n\s\b))\b",
