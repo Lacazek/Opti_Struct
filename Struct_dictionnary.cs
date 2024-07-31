@@ -40,6 +40,7 @@ namespace Opti_Struct
 
             try
             {
+                Message = $"Liste des structures";
                 foreach (var keys in _allStruct.Keys)
                 {
                     foreach (var candidate in _ss.Structures)
@@ -48,7 +49,11 @@ namespace Opti_Struct
                         {
                             if (Regex.IsMatch(candidate.Id, keys, RegexOptions.IgnoreCase))
                             {
-                                _multipleStruct.Add(candidate.Id);
+                                if (!_multipleStruct.Contains(candidate.Id))
+                                {
+                                    _multipleStruct.Add(candidate.Id);
+                                    Message = $"{candidate.Id}";
+                                }
                                 ClosestMatch = candidate.Id;
                             }
                         }
@@ -57,10 +62,10 @@ namespace Opti_Struct
 
                 if (_multipleStruct.Count > 1)
                 {
-                    Message = $"Il existe {_multipleStruct.Count} structures respectant la REGEX\n\n";
+                    Message = $"\nIl existe {_multipleStruct.Count} structures respectant la REGEX";
                     foreach (var st in _multipleStruct)
                     {
-                        similarity = CalculateSimilarity(st, name);
+                        similarity = CalculateCombinedSimilarity(Regex.Replace(st.ToLower(), @"[\s\r\n]+", "").ToLower().Trim(), Regex.Replace(name.ToLower(), @"[\s\r\n]+", "").ToLower().Trim());
                         Message = $"Test de la structure {ClosestMatch} ; Indice de similarité : {maxSimilarity}";
                         if (similarity > maxSimilarity)
                         {
@@ -69,7 +74,7 @@ namespace Opti_Struct
                         }
                     }
                 }
-                Message = $"La structure {name} a été corrigé en {ClosestMatch}\n\n";
+                Message = $"La structure {name}a été corrigée en {ClosestMatch}\n";
                 _multipleStruct.Clear();
                 return ClosestMatch;
             }
@@ -80,35 +85,110 @@ namespace Opti_Struct
             }
         }
 
+        #region Calcul des similarités
         #region Calcul of similarity (Distance de Levenshtein)
-        internal double CalculateSimilarity(string name, string key)
+        internal double CalculateLevenshteinSimilarity(string name, string key)
         {
+
             int n = name.Length;
             int m = key.Length;
             int[,] d = new int[n + 1, m + 1];
 
-            int maxLength = Math.Max(n, m);
+            if (n == 0) return 0;
+            if (m == 0) return 0;
 
-            if (n == 0) return m;
-            if (m == 0) return n;
-
-            for (int i = 0; i <= n; d[i, 0] = i++) ;
-            for (int j = 0; j <= m; d[0, j] = j++) ;
+            for (int i = 0; i <= n; i++) d[i, 0] = i;
+            for (int j = 0; j <= m; j++) d[0, j] = j;
 
             for (int i = 1; i <= n; i++)
             {
                 for (int j = 1; j <= m; j++)
                 {
                     int cost = (key[j - 1] == name[i - 1]) ? 0 : 1;
-                    d[i, j] = Math.Min(
-                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
-                            d[i - 1, j - 1] + cost);
+                    d[i, j] = Math.Min(Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1), d[i - 1, j - 1] + cost);
                 }
             }
-            return 1.0 - (double)d[n, m] / maxLength;
+
+            int levenshteinDistance = d[n, m];
+            int maxLength = Math.Max(n, m);
+            return 1.0 - (double)levenshteinDistance / maxLength;
         }
         #endregion
 
+        #region Calcul of cosinus similarity
+        public double CalculateCosineSimilarity(string name, string key)
+        {
+            var vec1 = GetCharacterFrequencyVector(name);
+            var vec2 = GetCharacterFrequencyVector(key);
+
+            double dotProduct = 0;
+            double magnitude1 = 0;
+            double magnitude2 = 0;
+
+            foreach (var kvp in vec1)
+            {
+                int value2;
+                if (vec2.TryGetValue(kvp.Key, out value2))
+                {
+                    dotProduct += kvp.Value * value2;
+                }
+                magnitude1 += kvp.Value * kvp.Value;
+            }
+
+            foreach (var kvp in vec2)
+            {
+                magnitude2 += kvp.Value * kvp.Value;
+            }
+
+            magnitude1 = Math.Sqrt(magnitude1);
+            magnitude2 = Math.Sqrt(magnitude2);
+
+            if (magnitude1 == 0 || magnitude2 == 0)
+            {
+                return 0;
+            }
+
+            return dotProduct / (magnitude1 * magnitude2);
+        }
+
+
+        private Dictionary<char, int> GetCharacterFrequencyVector(string str)
+        {
+            var frequency = new Dictionary<char, int>();
+            foreach (var c in str)
+            {
+                if (frequency.ContainsKey(c))
+                {
+                    frequency[c]++;
+                }
+                else
+                {
+                    frequency[c] = 1;
+                }
+            }
+            return frequency;
+        }
+        #endregion
+
+        public double CalculateCombinedSimilarity(string name, string key)
+        {
+            double levenshteinSim = CalculateLevenshteinSimilarity(name, key);
+            double cosineSim = CalculateCosineSimilarity(name, key);
+
+            // Combiner les deux mesures, vous pouvez ajuster les pondérations selon vos besoins
+            return (levenshteinSim + cosineSim) / 2.0;
+        }
+        #endregion
+
+        #region Get and Set
+        internal StructureSet ss
+        {
+            get { return _ss; }
+            set
+            {
+                _ss = value;
+            }
+        }
         internal string Message
         {
             get { return _message; }
@@ -122,6 +202,7 @@ namespace Opti_Struct
         {
             MessageChanged?.Invoke(this, _message);
         }
+        #endregion
 
         #region Create dictionnary
         private void CreateDictionnary()
@@ -149,7 +230,24 @@ namespace Opti_Struct
 
             ///////////////////////////////////////////////////////////////////////////// PTV /////////////////////////////////////////////////////////////////////////////
             // ORL
-            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*(?:b\s*r*[_\s]*(?:\s*\*\s*\d)?)?(?:h\s*r(?:\s*\*\s*\d)?)?(?:i\s*r)?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*[_\s]*(?:b\s*r*[_\s]*(?:\s*\*\s*\d)?)?(?:h\s*r(?:\s*\*\s*\d)?)?(?:i\s*r)?", RegexOptions.IgnoreCase))?.Id ?? "");
+
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*b\s*r\s*[_\s]*r*[_\s]*(1|2)?\b",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bp\s*t\s*v\s*[_\s]*b\s*r\s*[_\s]*r*[_\s]*(1|2)?\b", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*i\s*r\s*[_\s]*r*[_\s]*(1|2)?\b",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bp\s*t\s*v\s*[_\s]*i\s*r\s*[_\s]*r*[_\s]*(1|2)?\b", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*h\s*r\s*[_\s]*r*[_\s]*(1|2)?\b",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bp\s*t\s*v\s*[_\s]*h\s*r\s*[_\s]*r*[_\s]*(1|2)?\b", RegexOptions.IgnoreCase))?.Id ?? "");
+
+            // Sein
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*c\s*m\s*i\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*[_\s]*c\s*m\s*i\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*s\s*e\s*i\s*n\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*[_\s]*s\s*e\s*i\s*n\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*o\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*o\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*t\s*v\s*[_\s]*(?:n\s*[_\s]*)?(?:s\s*u\s*s\s*[_\s]*)c\s*l\s*a\s*v\s*[_\s]*(?:d|g)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)(?:\bp\s*t\s*v\s*[_\s]*l\s*i\s*t\s*u\s*m(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*u\s*t\s*o\s*m\s*r\s*a\s*l\b|c\s*t\s*v\s*_*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b)",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:p\s*t\s*v\s*_*l\s*i\s*t\s*u\s*m(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*u\s*t\s*o\s*m\s*r\s*a\s*l\b|c\s*t\s*v\s*_*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b|c\s*t\s*v\s*l\s*i\s*t\s*_*tu(?:\s*a\s*l)?(?:\s*f\s*b)?\b)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*t\s*v\s*[_\s]*p\s*a\s*r\s*o\s*i*[_\s]*(?:d|g)\b",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bp\s*t\s*v\s*[_\s]*p\s*a\s*r\s*o\s*i*[_\s]*(?:d|g)\b", RegexOptions.IgnoreCase))?.Id ?? "");
+
 
             // pelvis
             _allStruct.Add(@"(?i)(?:\bp\s*t\s*v\s*[_\s]*(?:t|n)(?:\s*[_\s]*[12])?)", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:p\s*t\s*v\s*[_\s]*(?:t|n)(?:\s*[_\s]*[12])?)", RegexOptions.IgnoreCase))?.Id ?? "");
@@ -161,22 +259,24 @@ namespace Opti_Struct
             _allStruct.Add(@"(?i)\b(?:i|p)\s*t\s*v*[_\s]*(?:\s*(?:1|2|n))?", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\b(?:i|p)\s*t\s*v*[_\s]*(?:\s*(?:1|2|n))?", RegexOptions.IgnoreCase))?.Id ?? "");
 
             // Volume cible DAZ (nomenclature n'incluant pas CTV)
-            _allStruct.Add(@"(?i)\bp\s*r\s*o\s*s\s*t\s*a\s*t\s*e\s*", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*r\s*o\s*s\s*t\s*a\s*t\s*e\s*", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bp\s*r\s*o\s*s\s*t\s*a\s*t\s*e\s\b", _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)p\s*r\s*o\s*s\s*t\s*a\s*t\s*e\s\b", RegexOptions.IgnoreCase))?.Id ?? "");
             _allStruct.Add(@"(?i)\bv\s*s\b|\bv*e\s*s\s*i\s*c\s*u\s*l\s*e*[_\s]*s\s*e\s*m\s*i\s*n\s*a\s*l\s*e\s\b",
                 _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bv\s*s\b|\bv*e\s*s\s*i\s*c\s*u\s*l\s*e*[_\s]*s\s*e\s*m\s*i\s*n\s*a\s*l\s*e\s\b", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bc\s*t\s*v\s*[\s_\-]*l\s*o\s*g\s*e\b",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bc\s*t\s*v\s*[\s_\-]*l\s*o\s*g\s*e\b", RegexOptions.IgnoreCase))?.Id ?? "");
 
 
             ///////////////////////////////////////////////////////////////////////////// OAR (IA) /////////////////////////////////////////////////////////////////////////////
             // Ordre OAR ( CE - Vessie - Coeur - moelle - TC - parotide D - parotide G - oesophage - Trachée - NOG - NOD - Chiasma - Encephale - paroi - poumons -
             // poumon D - poumon G - pharynx - larynx - thyroide - sein d & g - foie
 
-//OK            //CE
+            //OK            //CE
             _allStruct.Add(@"(?i)\bc\s*o\s*n\s*t\s*o\s*u\s*r\s*\s*e\s*x\s*t\s*e\s*r\s*n\s*e\b",
                 _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bc\s*o\s*n\s*t\s*o\s*u\s*r\s*\s*e\s*x\s*t\s*e\s*r\s*n\s*e\b", RegexOptions.IgnoreCase))?.Id ?? "");
 
 //OK            //Vessie
-            _allStruct.Add(@"(?i)(?:\bv\s*e\s*s\s*s\s*i\s*e|v\s*e\s*s\s*s\s*i\s*o|v\s*e\s*s\s*i\s*e|v\s*e\s*s\s*i\s*e\s*t|\s*o\s*a\s*r[_\s]*v\s*e\s*s\s*s\s*s\s*i\s*e\s*)",
-                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:v\s*e\s*s\s*s\s*i\s*e|v\s*e\s*s\s*s\s*i\s*o|v\s*e\s*s\s*i\s*e|v\s*e\s*s\s*i\s*e\s*t|\s*o\s*a\s*r[_\s]*v\s*e\s*s\s*s\s*s\s*i\s*e\s*)", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)(?:\bv\s*e\s*s\s*s\s*i\s*e|v\s*e\s*s\s*s\s*i\s*o|v\s*e\s*s\s*i\s*e|v\s*e\s*s\s*i\s*e\s*t|\s*o\s*a\s*r[_\s]*v\s*e\s*s\s*s\s*s\s*i\s*e\s\b)",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)(?:v\s*e\s*s\s*s\s*i\s*e|v\s*e\s*s\s*s\s*i\s*o|v\s*e\s*s\s*i\s*e|v\s*e\s*s\s*i\s*e\s*t|\s*o\s*a\s*r[_\s]*v\s*e\s*s\s*s\s*s\s*i\s*e\s\b)", RegexOptions.IgnoreCase))?.Id ?? "");
 
 //OK           //Coeur
             _allStruct.Add(@"(?i)(?:\bo\s*a\s*r[_\s]*c\s*o\s*e\s*u\s*r\b|\bc\s*o\s*e\s*u\s*r\b|\b(c\s*o\s*e\s*u\s*r\b|o\s*a\s*r\s*c\s*o\s*e\s*u\s*r)\b)",
@@ -262,6 +362,18 @@ namespace Opti_Struct
             _allStruct.Add(@"(?i)\b(?:f\s*o\s*i\s*e\b|\bo\s*a\s*r\s*[_/s]*f\s*o\s*i\s*e\b)",
                 _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\b(?:f\s*o\s*i\s*e\b|\bo\s*a\s*r\s*[_\s]*f\s*o\s*i\s*e\b)", RegexOptions.IgnoreCase))?.Id ?? "");
 
+            // Volume d'opti (cibles + ring)
+
+            _allStruct.Add(@"(?i)\bz_gtv\s*\w*.*",
+      _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bz_gtv\s*\w*.*", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bz_ctv\s*\w*.*",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bz_ctv\s*\w*.*", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bz_itv\s*\w*.*",
+      _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bz_itv\s*\w*.*", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bz_ptv\s*\w*.*",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bz_ptv\s*\w*.*", RegexOptions.IgnoreCase))?.Id ?? "");
+            _allStruct.Add(@"(?i)\bz_ring\s*\w*.*",
+                _ss.Structures.FirstOrDefault(s => Regex.IsMatch(s.Id, @"(?i)\bz_ring\s*\w*.*", RegexOptions.IgnoreCase))?.Id ?? "");
         }
         #endregion
     }

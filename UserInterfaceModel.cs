@@ -22,15 +22,20 @@ namespace Structure_optimisation
         private StreamWriter _logFile;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public UserInterfaceModel(StructureSet ss)
+        public UserInterfaceModel(StructureSet ss, Course course, Image image)
         {
             _userChoice = string.Empty;
             _rename = string.Empty;
-            _file = new GetFile(ss);
+            _file = new GetFile(ss, course,image);
             _localisation = new List<string>();
 			_fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
 			FillList();
-            _logFile = new StreamWriter("Log.txt", true);
+
+            FileInfo _fileinfo = new FileInfo("Opti_Struct\\LogFile.txt");
+            if (_fileinfo.Exists && _fileinfo.Length > 500 * 1000)
+                _fileinfo.Delete();
+            _logFile = new StreamWriter("Opti_Struct\\LogFile.txt", true);
+
             _file.MessageChanged += MessageChanged;
             Message = $"\n**********************************";
             Message = $"Debut de programme : {DateTime.Now}";
@@ -94,8 +99,9 @@ namespace Structure_optimisation
         {
             if (test == true)
             {
-                _logFile.WriteLine($"\nFichier Log fermé");
-                _logFile.WriteLine($"\n**************************************************************************************************************");
+                _logFile.WriteLine($"Fichier Log fermé");
+                _logFile.WriteLine($"Fin du programme : {DateTime.Now}");
+                _logFile.WriteLine($"***************************Script terminé***************************");
                 _logFile.Close();
                 }
         }

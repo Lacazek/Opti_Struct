@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using VMS.TPS.Common.Model.API;
+using Image = VMS.TPS.Common.Model.API.Image;
 
 namespace Structure_optimisation
 {
@@ -12,10 +13,10 @@ namespace Structure_optimisation
     {
         private UserInterfaceModel _model;
 
-        public UserInterface(StructureSet ss)
+        public UserInterface(StructureSet ss, Course course, Image image)
         {
             InitializeComponent();
-            _model = new UserInterfaceModel(ss);
+            _model = new UserInterfaceModel(ss,course,image);
             DataContext = _model;
             OK_Button.Visibility = Visibility.Collapsed;
             foreach (string item in _model.Localisation)
