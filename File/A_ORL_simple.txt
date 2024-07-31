@@ -1,35 +1,31 @@
 verbose : 0
 z_PTV_BR_tot : ptv br ! 0
-z_PTV_BR_tot : ptv br1 | ptv br2
+z_PTV_BR_tot : ptv br | ptv br1 | ptv br2
 z_PTV_HR_tot : ptv hr ! 0
-z_PTV_HR_tot : ptv hr1 | ptv hr2
-z_PTV_tot : z_ptv_hr_tot | z_ptv_br_tot
-z_PTV_tot : z_ptv_tot | ptv ir
-z_PTV_IR : ptv ir # gtv ir
-z_GTV : gtv n+ | gtv +
-z_PTV_HR : ptv hr # z_gtv
-z_PTV_BR_proche : ptv hr ! 15
-z_PTV_BR_proche: z_ptv_br_proche # ptv hr
-z_PTV_BR_proche : z_ptv_br_proche & ptv br
-z_PTV_BR_loin : ptv br # z_ptv_br_proche # z_ptv_hr_tot
-test : ptv hr ! 3
-z_PTV_IR : ptv ir # test
-test : /
+z_PTV_HR_tot : ptv hr | ptv hr1 | ptv hr2
+z_PTV_IR_tot : ptv ir ! 0
+z_PTV_IR_tot : ptv ir | ptv ir1 | ptv ir2
+z_PTV_IR : ptv ir | ptv ir1 | ptv ir2 # gtv ir
+z_PTV_tot : z_ptv_hr_tot | z_ptv_br_tot | z_ptv_ir_tot
+z_GTV : gtv n+ | gtv + | gtv
+z_PTV_HR : z_ptv_hr_tot # z_gtv
+z_PTV_BR_proche : z_ptv_hr_tot ! 15
+z_PTV_BR_proche: z_ptv_br_proche # z_ptv_hr_tot
+z_PTV_BR_proche : z_ptv_br_proche & z_PTV_BR_tot
+z_PTV_BR_loin : z_ptv_br_tot # z_ptv_br_proche # z_ptv_hr_tot
 PRV Moelle +2 : moelle ! 2
 PRV Moelle +3 : moelle ! 3
 PRV Moelle +5 : moelle ! 5
 PRV Moelle +10 : moelle ! 10
-PRC TC +2 : tronc cerebral ! 2
+PRV TC +2 : tronc cerebral ! 2
 PRV TC +3 : tronc cerebral ! 3
 test : /
 test : z_ptv_tot ! 3
 z_parotide_D_opt : parotide d # test
+z_parotide_D_opt : parotide d # z_ptv_tot
 z_parotide_G_opt : parotide g # test
 test : /
-test : seing ! 3
-z_Trac/Oeso opt : oesophage | s e i n g
-z_Trac/Oeso opt :z_trac/oeso opt # test
-test : /
+z_Trac/Oeso opt : oesophage | trachee
 z_opt post :
 z_opt inter :
 z_artefacts :

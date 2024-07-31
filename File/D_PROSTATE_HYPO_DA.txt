@@ -1,7 +1,8 @@
 verbose : 1
-PTV 2 : prostate ! 10,10,5,10,10,10
-PTV 1 : vs ! 10,10,5,10,10,10
+PTV 2 : prostate ! 8,8,4,8,8,8
+PTV 1 : vs ! 8,8,4,8,8,8
 PTV 1 : vs | prostate
+PTV 1 : ptv 1 ! 8
 PTV TOT : ptv 1 | ptv 2
 z_PTV 1 : ptv 1 # ptv 2
 z_OV vessie : vessie & ptv 2
