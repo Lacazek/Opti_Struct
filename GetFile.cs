@@ -19,11 +19,11 @@ namespace Structure_optimisation
         private string _message;
 
 
-        public GetFile(StructureSet ss)
+        public GetFile(StructureSet ss, Course course, Image image)
         {
             _userFileChoice = string.Empty;
-            _createVolume = new CreateVolume(ss);
-            _path = Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "File");
+            _createVolume = new CreateVolume(ss, course, image);
+            _path = Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "Opti_Struct\\File");
             _userPath = string.Empty;
             _createVolume.MessageChanged += VolumeMessageChanged;
         }

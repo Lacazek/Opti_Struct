@@ -33,20 +33,23 @@ La partie operateur correspond aux opérations à effectuer. Il existe 6 opérat
 
 " " pour créer une structure vide
 
+"," pour les marges asymétriques : droite, gauche, arrière, avant, bas puis haut
+
+
+Le script génère automatiquement le contour externe en fonction de la loc (seuil à -700 UH pour le sein, -450 pour l'ORL sinon, par défaut -350 UH)
 
 Une ligne contenant le mot verbose en premiere ligne de chaque fichier txt définit le niveau de verbosité; c-à-d le niveau de dialogue du code
-Il existe deux niveaux dans la version V2.0.0.6 : 
+Il existe deux niveaux :
 	0 --> le code ne parle pas du tout (message de fin uniquement)
 	1 --> le code parle et décrit chaque étape
 
-Le code enregsitre ce qui se passe lors de son exécution dans un fichier "log.txt" peu importe le niveau de verbosité.
-
+Le code enregistre ce qui se passe lors de son exécution dans un fichier "LogFile.txt" peu importe le niveau de verbosité.
+Le fichier LogFile est vidé lorsqu'il atteint 500 Ko pour éviter des erreurs de générations.
 
 ****************************************************************************************************************************
 ****************************************************************************************************************************
 ****************************************************************************************************************************
 
-!!!! Attention, pour la V2.0.0.6, les noms après les ":" doivent être en minuscule !!
 !!!! Le fichier txt ne doit pas être modifié durant l'exécution du script!!!
 
 
@@ -124,10 +127,13 @@ gtv --> structure 3 pour l'opération
 ****************************************************************************************************************************
 ****************************************************************************************************************************
 
-##### Prochaine MAJ pour améliorer la casse des noms (plus de problèmes de majuscule ou minuscule; Expression régulière ; ...)  en cours ...
-##### Amélioration de la détection des mauvais noms de structures et assignation à des structures existente de manière manuel et/ou automatique en cours ...
-##### Marges asymétrique 
-##### Création table et CE ?
+##### Prochaine MAJ pour améliorer la casse des noms (plus de problèmes de majuscule ou minuscule; Expression régulière ; ...)  terminé
+##### Amélioration de la détection des mauvais noms de structures et assignation à des structures existente de manière manuel et/ou automatique terminé
+##### Marges asymétrique  		terminé
+##### Création auto table 		en cours ...
+##### Création auto CE ? 		terminé
+##### Amélioration du fichier log 	en cours ...
 ##### problème sur les parotides en ORL
+##### Mauvaise prise en compte des latéralités (IMRT sein avec z_ptv sein et z_ptv sein G) 	terminé
 
 

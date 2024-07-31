@@ -11,7 +11,7 @@ using Structure_optimisation;
 
 // This line is necessary to "write" in database
 [assembly: ESAPIScript(IsWriteable = true)]
-[assembly: AssemblyVersion("1.0.0.1")]
+[assembly: AssemblyVersion("2.0.0.1")]
 
 namespace VMS.TPS
 {
@@ -24,7 +24,7 @@ namespace VMS.TPS
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		public void Execute(ScriptContext context)
 		{
-			UserInterface _interface = new UserInterface(context.StructureSet);
+			UserInterface _interface = new UserInterface(context.StructureSet, context.Course, context.Image);
             Patient patient = context.Patient;
             patient.BeginModifications();
             _interface.ShowDialog();
