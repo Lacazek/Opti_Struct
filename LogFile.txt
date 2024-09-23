@@ -1,359 +1,1590 @@
 
 **********************************
-Debut de programme : 29/07/2024 13:11:47
-Ordinateur utilisé : B24X0002
+Debut de programme : 23/09/2024 13:52:15
+Ordinateur utilisé : CHUN-ARI-CITRX2
 OS : Microsoft Windows NT 6.2.9200.0
 Domaine windows : CHU30.COM
 Dossier de travail : C:\Windows\system32
-Taille du jeu de travail : 988725248
+Taille du jeu de travail : 702844928
 User : 129391
 
 Fichier ouvert
 
-Fichier choisi : D_LOGE_DA  
+Fichier choisi : 1_test_table 
 
 Aucune modification du contour externe
 
 Travail sur la structure verbose
 Niveau de verbose 0
-Travail sur la structure PTV 2
+Travail sur la structure ptv 2
 ********** Operation simple **********
-Marge symétriques de  5 mm sur la structure : CTVloge
-Structure PTV 2 créée
-
-
-Travail sur la structure PTV 1
-********** Operation simple **********
-Marge symétriques de  10 mm sur la structure : CTVloge
-Structure PTV 1 créée
-
-
-Travail sur la structure PTV N
-********** Operation simple **********
-Marge symétriques de  7 mm sur la structure : CTV N
-Structure PTV N créée
-
-
-Travail sur la structure PTV TOT
-Mauvaise nomenclature sur la structure ptv 1 
-Liste des structures
-PTV 1
-La structure ptv 1 a été corrigée en PTV 1
-
-Modification du nom de la structure ptv 1  par PTV 1
-Mauvaise nomenclature sur la structure  ptv 2 
-Liste des structures
-PTV 1
-La structure  ptv 2 a été corrigée en PTV 1
-
-Modification du nom de la structure  ptv 2  par PTV 1
-Mauvaise nomenclature sur la structure  ptv n
-Liste des structures
-PTV N
-PTV 1
-
-Il existe 2 structures respectant la REGEX
-Test de la structure PTV 1 ; Indice de similarité : 0
-Test de la structure PTV N ; Indice de similarité : 1
-La structure  ptv na été corrigée en PTV N
-
-Modification du nom de la structure  ptv n par PTV N
-********** Operation multiple **********
-Operation sur les structures : PTV N et PTV 1
-Structure PTV TOT créée
-
-
-Travail sur la structure z_PTV 1
-Mauvaise nomenclature sur la structure ptv 1 
-Liste des structures
-PTV 1
-La structure ptv 1 a été corrigée en PTV 1
-
-Mauvaise nomenclature sur la structure  ptv 2
-Liste des structures
-PTV 1
-La structure  ptv 2a été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe #
-Operation sur les structures : PTV 1 et PTV 1
-Structure z_PTV 1 créée
-
-
-Travail sur la structure z_OV vessie
-Mauvaise nomenclature sur la structure vessie 
-Liste des structures
-Vessie
-z_OV vessie
-
-Il existe 2 structures respectant la REGEX
-Test de la structure z_OV vessie ; Indice de similarité : 0
-Test de la structure Vessie ; Indice de similarité : 1
-La structure vessie a été corrigée en Vessie
-
-Mauvaise nomenclature sur la structure  ptv 2
-Liste des structures
-PTV 1
-La structure  ptv 2a été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe &
-Operation sur les structures : Vessie et PTV 1
-Structure z_OV vessie créée
-
-
-Travail sur la structure z_OV rectum
-Mauvaise nomenclature sur la structure rectum 
-Liste des structures
-La structure rectum a été corrigée en rectum 
-
-Mauvaise nomenclature sur la structure  ptv 2
-Liste des structures
-PTV 1
-La structure  ptv 2a été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe &
-Operation sur les structures : Rectum et PTV 1
-Structure z_OV rectum créée
-
-
-Travail sur la structure z_PTV2-OV
-Mauvaise nomenclature sur la structure ptv 2 
-Liste des structures
-PTV 1
-La structure ptv 2 a été corrigée en PTV 1
-
-Modification du nom de la structure ptv 2  par PTV 1
-Mauvaise nomenclature sur la structure  vessie 
-Liste des structures
-Vessie
-z_OV vessie
-
-Il existe 2 structures respectant la REGEX
-Test de la structure z_OV vessie ; Indice de similarité : 0
-Test de la structure Vessie ; Indice de similarité : 1
-La structure  vessie a été corrigée en Vessie
-
-Modification du nom de la structure  vessie  par Vessie
-Mauvaise nomenclature sur la structure  rectum
-Liste des structures
-La structure  rectuma été corrigée en  rectum
-
-********** Operation multiple **********
-Operation sur les structures : Rectum et Vessie
-Structure z_PTV2-OV créée
-
-
-Travail sur la structure test
-********** Operation simple **********
-Marge symétriques de  3 mm sur la structure : PTV TOT
-Structure test créée
-
-
-Travail sur la structure z_Vessie
-Mauvaise nomenclature sur la structure vessie 
-Liste des structures
-Vessie
-z_OV vessie
-
-Il existe 2 structures respectant la REGEX
-Test de la structure z_OV vessie ; Indice de similarité : 0
-Test de la structure Vessie ; Indice de similarité : 1
-La structure vessie a été corrigée en Vessie
-
-Mauvaise nomenclature sur la structure  test
-Liste des structures
-La structure  testa été corrigée en  test
-
-********** Operation simple **********
-Operation complexe #
-Operation sur les structures : Vessie et test
-Structure z_Vessie créée
-
-
-Travail sur la structure z_Rectum
-Mauvaise nomenclature sur la structure rectum 
-Liste des structures
-La structure rectum a été corrigée en rectum 
-
-Mauvaise nomenclature sur la structure  test
-Liste des structures
-La structure  testa été corrigée en  test
-
-********** Operation simple **********
-Operation complexe #
-Operation sur les structures : Rectum et test
-Structure z_Rectum créée
-
-
-Travail sur la structure test
-********** Operation simple **********
-Suppression de structure
-Structure test supprimée
-
-
-Travail sur la structure z_PTV1 proche
-********** Operation simple **********
-Marge symétriques de  15.00 mm sur la structure : PTV 2
-Structure z_PTV1 proche créée
-
-
-Travail sur la structure z_PTV1 proche
-Mauvaise nomenclature sur la structure z_ptv1 proche 
-Liste des structures
-z_PTV 1
-La structure z_ptv1 proche a été corrigée en z_PTV 1
-
-Mauvaise nomenclature sur la structure  ptv 2
-Liste des structures
-PTV 1
-La structure  ptv 2a été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe #
-Operation sur les structures : z_PTV 1 et PTV 1
-Structure z_PTV1 proche créée
-
-
-Travail sur la structure z_PTV1 proche
-Mauvaise nomenclature sur la structure z_ptv1 proche 
-Liste des structures
-z_PTV 1
-La structure z_ptv1 proche a été corrigée en z_PTV 1
-
-Mauvaise nomenclature sur la structure  ptv 1
-Liste des structures
-PTV 1
-La structure  ptv 1a été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe &
-Operation sur les structures : z_PTV 1 et PTV 1
-Structure z_PTV1 proche créée
-
-
-Travail sur la structure z_PTV1 loin
-Mauvaise nomenclature sur la structure ptv tot 
-Liste des structures
-PTV N
-PTV 1
-
-Il existe 2 structures respectant la REGEX
-Test de la structure PTV 1 ; Indice de similarité : 0
-Test de la structure PTV N ; Indice de similarité : 0.610843918243516
-La structure ptv tot a été corrigée en PTV N
-
-Modification du nom de la structure ptv tot  par PTV N
-Mauvaise nomenclature sur la structure  z_ptv1 proche 
-Liste des structures
-z_PTV 1
-La structure  z_ptv1 proche a été corrigée en z_PTV 1
-
-Modification du nom de la structure  z_ptv1 proche  par z_PTV 1
-Mauvaise nomenclature sur la structure  ptv 2
-Liste des structures
-PTV 1
-La structure  ptv 2a été corrigée en PTV 1
-
-Modification du nom de la structure  ptv 2 par PTV 1
-********** Operation multiple **********
-Operation sur les structures : PTV 1 et z_PTV 1
-Structure z_PTV1 loin créée
-
-
-Travail sur la structure test
-********** Operation simple **********
-Marge symétriques de  10 mm sur la structure : PTV GG
-Structure test créée
-
-
-Travail sur la structure z_PTV1 loin-GG
-Mauvaise nomenclature sur la structure z_ptv1 loin 
-Liste des structures
-z_PTV 1
-La structure z_ptv1 loin a été corrigée en z_PTV 1
-
-Mauvaise nomenclature sur la structure  test
-Liste des structures
-La structure  testa été corrigée en  test
-
-********** Operation simple **********
-Operation complexe #
-Operation sur les structures : z_PTV 1 et test
-Structure z_PTV1 loin-GG créée
-
-
-Travail sur la structure z_PTV1 loin-GG
-Mauvaise nomenclature sur la structure z_ptv1 loin-gg 
-Liste des structures
-z_PTV 1
-La structure z_ptv1 loin-gg a été corrigée en z_PTV 1
-
-Mauvaise nomenclature sur la structure  ptv 1
-Liste des structures
-PTV 1
-La structure  ptv 1a été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe #
-Operation sur les structures : z_PTV 1 et PTV 1
-Structure z_PTV1 loin-GG créée
-
-
-Travail sur la structure z_PTV1 proche-GG
-Mauvaise nomenclature sur la structure test 
-Liste des structures
-La structure test a été corrigée en test 
-
-Mauvaise nomenclature sur la structure  ptv gg
-Liste des structures
-PTV 1
-La structure  ptv gga été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe #
-Operation sur les structures : test et PTV 1
-Structure z_PTV1 proche-GG créée
-
-
-Travail sur la structure z_PTV1 proche-GG
-Mauvaise nomenclature sur la structure z_ptv1 proche-gg 
-Liste des structures
-z_PTV 1
-La structure z_ptv1 proche-gg a été corrigée en z_PTV 1
-
-Mauvaise nomenclature sur la structure  ptv 1
-Liste des structures
-PTV 1
-La structure  ptv 1a été corrigée en PTV 1
-
-********** Operation simple **********
-Operation complexe &
-Operation sur les structures : z_PTV 1 et PTV 1
-Structure z_PTV1 proche-GG créée
-
-
-Travail sur la structure test
-********** Operation simple **********
-Suppression de structure
-Structure test supprimée
-
-
-Travail sur la structure z_opt post
-Une erreur est survenue sur la structure z_opt post : Cet ID est déjà utilisé.
-
-
-Travail sur la structure z_opt inter
-Une erreur est survenue sur la structure z_opt inter : Cet ID est déjà utilisé.
-
-
-Travail sur la structure z_opt haut
-Une erreur est survenue sur la structure z_opt haut : Cet ID est déjà utilisé.
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+10 mm haut sur la structure : PTV
+Structure ptv 2 créée
 
 
 
 
 Fichier Log fermé
-Fin du programme : 29/07/2024 13:11:56
+Fin du programme : 23/09/2024 13:52:19
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:57:13
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 720654336
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 13:57:16
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:57:43
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 723759104
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 13:57:45
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:58:00
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 727941120
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 13:58:03
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:58:21
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 727752704
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 13:58:23
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:58:37
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 728170496
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 13:58:42
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:59:16
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 765177856
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 13:59:19
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:59:38
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 682278912
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 13:59:42
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 13:59:59
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 684666880
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:00:02
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:00:23
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 686268416
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:00:26
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:01:56
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 757211136
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:02:27
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:07:57
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 661856256
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:08:00
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:08:09
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 671440896
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:08:14
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:09:28
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 673890304
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:09:31
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:10:06
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 674562048
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+Travail sur la structure ptv 3
+********** Operation simple **********
+Marge symétriques de  10 mm sur la structure : PTV
+Structure ptv 3 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:10:09
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:11:00
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 682774528
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+Travail sur la structure ptv 3
+********** Operation simple **********
+Marge symétriques de  10 mm sur la structure : PTV
+Structure ptv 3 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:11:02
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:12:13
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 462581760
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+Travail sur la structure ptv 3
+********** Operation simple **********
+Marge symétriques de  10 mm sur la structure : PTV
+Structure ptv 3 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:12:16
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:12:37
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 475824128
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:12:40
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:13:31
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 504729600
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Index was outside the bounds of the array.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:13:34
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:14:44
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 507166720
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 10 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:14:47
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:15:18
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 511160320
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+10 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:15:20
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:15:50
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 511029248
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+10 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:15:53
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:16:31
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 512512000
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+10 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:16:33
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:17:03
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 512704512
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+10 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:17:05
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:18:00
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 510021632
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+10 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:18:03
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:19:49
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 515043328
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 10 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:19:58
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:20:14
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 514285568
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+10 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:20:17
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:20:38
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 513335296
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+10 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:20:41
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:21:07
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 514146304
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+10 mm à gauche,
+1 mm en arrière,
+1 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:21:10
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:21:51
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 515391488
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+10 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:21:53
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:25:56
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 542543872
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 1 mm à droite,
+1 mm à gauche,
+1 mm en arrière,
+10 mm en avant,
+1 mm en bas,
+1 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:26:00
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:42:29
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 553218048
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Too large margin value.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:42:32
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:43:07
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 553316352
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Too large margin value.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:43:11
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:43:42
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 544276480
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Too large margin value.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:43:46
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:46:06
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 546123776
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Too large margin value.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:46:09
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:48:03
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 546082816
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Too large margin value.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:48:09
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:48:42
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 544514048
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Une erreur est survenue sur la structure ptv 2 : Too large margin value.
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:48:45
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 23/09/2024 14:48:57
+Ordinateur utilisé : CHUN-ARI-CITRX2
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 544346112
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+10 mm en arrière,
+40 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : PTV
+Structure ptv 2 créée
+
+
+
+
+Fichier Log fermé
+Fin du programme : 23/09/2024 14:49:00
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:20:09 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 533495808
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+La structure ptv a été corrigée en ptv 
+
+Une erreur est survenue sur la structure ptv 2 : La référence d'objet n'est pas définie à une instance d'un objet.
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:20:13 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:20:43 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 451325952
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:20:47 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:23:11 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 461488128
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:25:15 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:28:33 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 456118272
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:28:45 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:29:33 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 514834432
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:29:58 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:30:16 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 497500160
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:30:24 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:31:43 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 581771264
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:31:46 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:32:40 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 537735168
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:32:43 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:33:05 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 526684160
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:33:09 PM
+***************************Script terminé***************************
+
+**********************************
+Debut de programme : 9/23/2024 3:33:34 PM
+Ordinateur utilisé : B23X003
+OS : Microsoft Windows NT 6.2.9200.0
+Domaine windows : CHU30.COM
+Dossier de travail : C:\Windows\system32
+Taille du jeu de travail : 537214976
+User : 129391
+
+Fichier ouvert
+
+Fichier choisi : 1_test_table 
+
+Aucune modification du contour externe
+
+Travail sur la structure verbose
+Niveau de verbose 0
+Travail sur la structure ptv 2
+Mauvaise nomenclature sur la structure ptv 
+Liste des structures
+ptv 2
+La structure ptv a été corrigée en ptv 2
+
+********** Operation simple **********
+Marge asymétriques de 5 mm à droite,
+30 mm à gauche,
+40 mm en arrière,
+10 mm en avant,
+20 mm en bas,
+50 mm haut sur la structure : ptv 2
+Structure ptv 2 créée
+
+
+Travail sur la structure table
+Travail sur la structure table en cours ....
+
+********** Ajout de la table de traitement **********
+*****************************************************
+
+
+
+
+Fichier Log fermé
+Fin du programme : 9/23/2024 3:33:39 PM
 ***************************Script terminé***************************

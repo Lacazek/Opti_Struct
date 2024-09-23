@@ -87,7 +87,7 @@ namespace Structure_optimisation
             else if (_userFileChoice.ToLower().Contains("orl"))
             {
                 _ss.RemoveStructure(BODY);
-                _bodyParameters.LowerHUThreshold = -450;
+                _bodyParameters.LowerHUThreshold = -350;
                 BODY = _ss.CreateAndSearchBody(_bodyParameters);
                 Message = $"Modification du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n";
             }
@@ -101,14 +101,14 @@ namespace Structure_optimisation
             List<char> indexeur = new List<char>();
             List<string> _operation = new List<string>();
             line = "Start";
-            Random _c = new Random();
+            Random col = new Random();
 
             #region Read file
             while ((line = srf.ReadLine()) != null)
             {
                 name = line.Split(':')[0].Trim();
                 line = line.Split(':')[1].Trim();
-                byte color = (byte)_c.Next(0, 256);
+                byte color = (byte)col.Next(60, 256);
                 nSplit.Clear();
                 indexeur.Clear();
                 _operation.Clear();
@@ -135,23 +135,31 @@ namespace Structure_optimisation
                         try
                         {
                             IReadOnlyList<Structure> couchStructureList = _ss.Structures.ToList();
-                            bool ImageResized;
+                            bool ImageResized = false;
                             string error = "Erreur dans la création de la table";
                             double interiorHu = -1000, surfaceHu = -300;
 
-                            if (line.ToLower().Equals( ("fine")))
-                                _ss.AddCouchStructures("Table Exact IGRT, fine", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
-                            else if (line.ToLower().Equals("moyenne"))
-                                _ss.AddCouchStructures("Table Exact IGRT, moyenne", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
-                            else if (line.ToLower().Equals("epaisse"))
-                                _ss.AddCouchStructures("Table Exact IGRT, épaisse", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
-                            else if (_course.PlanSetups.Any(x => x.Beams.Any(y => y.TreatmentUnit.Id.ToLower().Contains("halcyon")))|| line.ToLower().Equals("halcyon"))
+                            if (line.ToLower().Equals(("fine")))
                             {
-                                MessageBox.Show("avant halcyon");
-                                //_ss.AddCouchStructures("Table Halcyon", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
-                                _ss.AddCouchStructures("Table Halcyon", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, null, null, null, out couchStructureList, out ImageResized, out error);
-                                MessageBox.Show("Halcyon");
+                                _ss.AddCouchStructures("Exact_IGRT_Couch_Top_thin", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
+                                Message = $"Ajout de la structure Table Truebeam fine";
                             }
+                            else if (line.ToLower().Equals("moyenne"))
+                            {
+                                _ss.AddCouchStructures("Exact_IGRT_Couch_Top_medium", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
+                                Message = $"Ajout de la structure Table Truebeam medium";
+                            }
+                            else if (line.ToLower().Equals("epaisse"))
+                            {
+                                _ss.AddCouchStructures("Exact_IGRT_Couch_Top_thick", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
+                                Message = $"Ajout de la structure Table Truebeam epaisse";
+                            }
+                            else if (_course.PlanSetups.Any(x => x.Beams.Any(y => y.TreatmentUnit.Id.ToLower().Contains("halcyon"))))
+                            {
+                                _ss.AddCouchStructures("RDS_Couch_Top", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, null, null, null, out couchStructureList, out ImageResized, out error);
+                                Message = $"Ajout de la structure Table Halcyon";
+                            }
+
                             VVector Isocenter = _course.PlanSetups.SelectMany(ps => ps.Beams).Where(b => b.IsocenterPosition != null).Select(b => b.IsocenterPosition).FirstOrDefault();
                             VVector Couchposition = new VVector();
                             Couchposition.x = _image.Origin.x - Isocenter.x + 0;
@@ -167,6 +175,7 @@ namespace Structure_optimisation
                                     item.CenterPoint.Update(VVector.Component.Z, Couchposition.z);
                                 }
                             }
+                            //MessageBox.Show("resized?: " + ImageResized + "\nerror?:" + error);
                         }
                         catch(Exception ex) 
                         {
@@ -174,8 +183,8 @@ namespace Structure_optimisation
                         }
 
                         Message = $"********** Ajout de la table de traitement **********";
+                        Message = $"************ Positionnement non vérifié *************";
                         Message = $"*****************************************************";
-
                     }
                     #endregion
 
@@ -225,19 +234,20 @@ namespace Structure_optimisation
                                     if (V_f.Any(x => x < 0))
                                     {
                                         // dans l'ordre : x1, x2, y1, y2, z1 et z2
+                                        // ordre dans la fonction :  droite, avant, bas, gauche, arrière, haut
                                         // ici droite puis gauche, arrière puis avant, bas puis haut
-                                        _margin = new AxisAlignedMargins(StructureMarginGeometry.Inner, Math.Abs(V_f[0]), Math.Abs(V_f[3]), Math.Abs(V_f[1]), Math.Abs(V_f[4]), Math.Abs(V_f[2]), Math.Abs(V_f[5]));
+                                        _margin = new AxisAlignedMargins(StructureMarginGeometry.Inner, Math.Abs(V_f[0]), Math.Abs(V_f[3]), Math.Abs(V_f[4]), Math.Abs(V_f[1]), Math.Abs(V_f[2]), Math.Abs(V_f[5]));
                                     }
                                     else
                                     {
                                         // dans l'ordre : x1, x2, y1, y2, z1 et z2
+                                        // ordre dans la fonction :  droite, avant, bas, gauche, arrière, haut
                                         // ici droite puis gauche, arrière puis avant, bas puis haut
-                                        _margin = new AxisAlignedMargins(StructureMarginGeometry.Outer, V_f[0], V_f[3], V_f[1], V_f[4], V_f[2], V_f[5]);
+                                        _margin = new AxisAlignedMargins(StructureMarginGeometry.Outer, V_f[0], V_f[3], V_f[4], V_f[1], V_f[2], V_f[5]);
                                     }
-
                                     myStruct.SegmentVolume = Struct1.SegmentVolume.AsymmetricMargin(_margin);
                                     Message = $"********** Operation simple **********";
-                                    Message = $"Marge asymétriques de {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[1]} mm en arrière,\n{V_f[4]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} mm haut sur la structure : {Struct1.Id}";
+                                    Message = $"Marge asymétriques de {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[4]} mm en arrière,\n{V_f[1]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} mm haut sur la structure : {Struct1.Id}";
                                     Message = $"Structure {name} créée";
                                 }
                                 else
@@ -250,14 +260,12 @@ namespace Structure_optimisation
                                 if (!name.ToLower().Contains("externe"))
                                     myStruct.SegmentVolume = myStruct.And(BODY);
                                 continue;
-
                             }
                             #endregion
 
                             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
                             #region All others operations
-
                             else if (key != filterTags[4] && key != filterTags[5] && key != filterTags[6] && key != filterTags[7] && key != filterTags[8]) // toutes les autres opérations
                             {
                                 #region multiple structures
@@ -442,7 +450,6 @@ namespace Structure_optimisation
             }
             #endregion
 
-            Message = "\n";
             if (verbose >= 0)
                 MessageBox.Show("Les structures ont été créées.\nMerci de les vérifier !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             srf.Close();

@@ -57,7 +57,7 @@ Le fichier LogFile est vidé lorsqu'il atteint 500 Ko pour éviter des erreurs d
 ***************************************************** Exemple **************************************************************
 ****************************************************************************************************************************
 
-// Marges
+// Marges symétriques
 
 
 PTV : itv ! 5
@@ -73,7 +73,31 @@ itv --> structure 1
 -------> Il créé la même structure avec 5 mm de marges
 
 
+// Marges asymétriques
 
+
+PTV : itv ! 1,2,3,4,5,6
+
+ptv --> nom structure
+
+itv --> structure 1
+
+! --> opérateur pour les marges
+
+5 --> 1.00 mm de marges à droite [mm]
+
+5 --> 2.00 mm de marges à gauche [mm]
+
+5 --> 3.00 mm de marges en arrière [mm]
+
+5 --> 4.00 mm de marges en avant [mm]
+
+5 --> 5.00 mm de marges en bas [mm]
+
+5 --> 6.00 mm de marges en haut [mm]
+
+
+-------> Il créé la même structure avec des larges asymétriques
 
 // Création structure vide
 
@@ -82,7 +106,6 @@ PTV :
 PTV --> nom structure qui sera créée vide
 
 -------> Il créé une structure vide
-
 
 
 // Avec deux structures
@@ -127,10 +150,10 @@ gtv --> structure 3 pour l'opération
 ****************************************************************************************************************************
 ****************************************************************************************************************************
 
-##### Prochaine MAJ pour améliorer la casse des noms (plus de problèmes de majuscule ou minuscule; Expression régulière ; ...)  terminé
-##### Amélioration de la détection des mauvais noms de structures et assignation à des structures existente de manière manuel et/ou automatique terminé
+##### Prochaine MAJ pour améliorer la casse des noms (plus de problèmes de majuscule ou minuscule; Expression régulière ; ...) 		 terminé
+##### Amélioration de la détection des mauvais noms de structures et assignation à des structures existente de manière manuel et/ou automatique 	terminé
 ##### Marges asymétrique  		terminé
-##### Création auto table 		en cours ...
+##### Création auto table 		terminé
 ##### Création auto CE ? 		terminé
 ##### Amélioration du fichier log 	en cours ...
 ##### problème sur les parotides en ORL
