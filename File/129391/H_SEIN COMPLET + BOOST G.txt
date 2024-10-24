@@ -13,8 +13,8 @@ test : ptv boost ! 3
 z_ring Boost : z_ring boost # test
 test : /
 test : contour externe ! -5
-CTV_dosi : ctv sein g & test
-PTV_dosi : ptv sein g & test
+z_CTV seinG -5 : ctv sein g & test
+z_PTV seinG -5 : ptv sein g & test
 test : /
 PTV total : ptv sein g ! 0
 PTV total : ptv total | ptv cmi g

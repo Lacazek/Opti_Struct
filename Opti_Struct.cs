@@ -1,12 +1,6 @@
-using System;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using VMS.TPS.Common.Model.API;
-using VMS.TPS.Common.Model.Types;
 using Structure_optimisation;
 
 // This line is necessary to "write" in database
@@ -24,11 +18,17 @@ namespace VMS.TPS
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		public void Execute(ScriptContext context)
 		{
-			UserInterface _interface = new UserInterface(context.StructureSet, context.Course, context.Image);
-            Patient patient = context.Patient;
-            patient.BeginModifications();
-            _interface.ShowDialog();
-			_interface.IsOpened(true);
+            UserInterface _interface = new UserInterface(context);
+            try
+			{
+                context.Patient.BeginModifications();
+				_interface.ShowDialog();
+				_interface.IsOpened(true);
+			}
+			catch
+			{
+                _interface.IsOpened(true);
+            }
 		}
 	}
 }

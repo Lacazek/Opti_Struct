@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.ComponentModel;
-using VMS.TPS.Common.Model.API;
 using System.Reflection;
+using System.Linq;
 
 namespace Structure_optimisation
 {
@@ -17,24 +18,40 @@ namespace Structure_optimisation
         private string _path;
         private string _userPath;
         private string _message;
+        private List<string> _targets;
 
 
-        public GetFile(StructureSet ss, Course course, Image image)
+        public GetFile(UserInterfaceModel model)
         {
+            _targets = new List<string>();
+            _createVolume = new CreateVolume(model.GetContext.StructureSet, model.GetContext.Course, model.GetContext.Image);
+            try
+            {
+                _path = Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), $@"Opti_Struct\File\{Environment.UserName}");
+            }
+            catch
+            {
+                _path = Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), $@"Opti_Struct\File");
+            }
             _userFileChoice = string.Empty;
-            _createVolume = new CreateVolume(ss, course, image);
-            _path = Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "Opti_Struct\\File");
             _userPath = string.Empty;
             _createVolume.MessageChanged += VolumeMessageChanged;
         }
 
         internal void CreateUserFile()
         {
+            _userPath = System.IO.Path.Combine(_path, _userFileChoice + ".txt");
+        }
+        internal void LaunchSegmentation()
+        {
             try
             {
-                _userPath = System.IO.Path.Combine(_path, _userFileChoice + ".txt");
-                Message = $"Fichier choisi : {_userFileChoice} \n";
-                _createVolume.CreationVolume(_userPath);
+                for (int target = 0; target < _targets.Count(); target++)
+                {
+                    Message = $"La cible n°{target + 1} choisie est : \n{_targets[target]}";
+                }
+                Message = $"\nFichier choisi : {_userFileChoice} \n";
+                _createVolume.CreationVolume(_userPath, _targets);
             }
             catch (Exception ex)
             {
@@ -43,6 +60,8 @@ namespace Structure_optimisation
                 Message = $"Une erreur est survenue : {ex.Message} \n";
             }
         }
+
+        // Nom du fichier sélectionné par l'utilisateur
         internal string UserFile
         {
             get { return _userFileChoice; }
@@ -53,15 +72,23 @@ namespace Structure_optimisation
                 CreateUserFile();
             }
         }
-        internal string UserPath
+        internal List<string> Targets
+        {
+            set { _targets = value; }
+        }
+
+        // Chemin complet jusqu'au fichier.txt
+        internal string GetUserPath
         {
             get { return _userPath; }
-            set
-            { _userPath = value; }
+            set { _userPath = value; }
         }
-        internal string GetPath
+
+        // Chemin jusqu'au répertoire de travail
+        internal string GetDirectoryPath
         {
             get { return _path; }
+            set { _path = value; }
         }
         internal string Message
         {

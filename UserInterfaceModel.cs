@@ -4,29 +4,24 @@ using System.ComponentModel;
 using VMS.TPS.Common.Model.API;
 using System.IO;
 using System.Reflection;
-using System.Windows;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
-
+using Opti_Struct;
 
 namespace Structure_optimisation
 {
 
     internal class UserInterfaceModel : INotifyPropertyChanged
     {
-        private string _userChoice;
-        private string _rename;
+        private ScriptContext _context;
 		private readonly string _fisherMan;
 		private GetFile _file;
         private List<string> _localisation;
         private StreamWriter _logFile;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public UserInterfaceModel(StructureSet ss, Course course, Image image)
+        public UserInterfaceModel(ScriptContext context, List<string> targets)
         {
-            _userChoice = string.Empty;
-            _rename = string.Empty;
-            _file = new GetFile(ss, course,image);
+            _context = context;
+            _file = new GetFile(this);
             _localisation = new List<string>();
 			_fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
 			FillList();
@@ -37,7 +32,11 @@ namespace Structure_optimisation
             _logFile = new StreamWriter("Opti_Struct\\LogFile.txt", true);
 
             _file.MessageChanged += MessageChanged;
+
+
             Message = $"\n**********************************";
+            Message = $"************ Benvenue *************";
+            Message = $"**********************************\n";
             Message = $"Debut de programme : {DateTime.Now}";
             Message = $"Ordinateur utilisé : {Environment.MachineName}";
             Message = $"OS : {Environment.OSVersion}";
@@ -48,25 +47,17 @@ namespace Structure_optimisation
             Message = $"Fichier ouvert\n";
         }
 
-        private void FillList()
+        internal void FillList()
         {
-            foreach (var item in Directory.GetFiles(_file.GetPath))
+            foreach (var item in Directory.GetFiles(_file.GetDirectoryPath))
             {
                 _localisation.Add(Path.GetFileNameWithoutExtension(item));
             }
             _localisation.Sort();
         }
-        internal string UserChoice
+        internal void ClearList()
         {
-            get { return _userChoice; }
-        }
-        internal string Rename
-        {
-            get { return _rename; }
-        }
-        internal string Fisherman
-        {
-            get { return _fisherMan; }
+            _localisation.Clear();
         }
         internal GetFile File
         {
@@ -77,13 +68,27 @@ namespace Structure_optimisation
             get { return _file.UserFile; }
             set { _file.UserFile = value; }
         }
-        internal string UserPath
+        internal List<string> Targets
         {
-            get { return _file.GetPath; }
+            set { _file.Targets = value; }
+        }
+        internal string GetDirectoryPath
+        {
+            get { return _file.GetDirectoryPath; }
+            set { _file.GetDirectoryPath = value; }
+        }
+        internal string GetUserPath
+        {
+            get { return _file.GetUserPath; }
+            set { _file.GetUserPath = value; }
         }
         internal List<string> Localisation
         {
             get { return _localisation; }
+        }
+        internal ScriptContext GetContext
+        {
+            get { return _context; }
         }
         internal string Message
         {

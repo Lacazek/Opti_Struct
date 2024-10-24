@@ -4,20 +4,30 @@ Le but de ce code est de fournir une solution pour créer automatiquement une st
 Selon le fichier txt, l'utilisateur peut décider de créer sa propre structure.
 Le script lit dans les fichiers txt, les opérations souhaitées par l'utilisateur. 
 Il existe plusieurs fichiers en fonction de la localisation, latéralité et/ou de la prescription 
-(disponible dans le dossier \File) (ils seront amenés à évoluer ave le temps).
+(disponible dans le dossier \File) (ils seront amenés à évoluer avec le temps).
 
 
 ****************************************************************************************************************************
 ****************************************************************************************************************************
 ****************************************************************************************************************************
 
-Pour le bon déroulé du code un vocabulaire spécifique doit être utilisé. Il respecte l'écriture suivante :
+Pour le bon déroulé du code, un vocabulaire spécifique doit être utilisé. Il respecte l'écriture suivante :
 
 nom_structure_à_créer 		: 	nom_structure_1		 operateur	 nom_structure_2 	operateur 	nom_structure_3 	.....
 
+Pour la table de traitement, la nomenclature est la même avec 4 possibilités :
+
+table : fine 
+
+table : moyenne
+
+table : epaisse 
+
+table : halcyon
+
 Les ":" permettent de faire la différence entre le nom de la structre à créer (à gauche) des structures utilisée pour les opérations (à droite)
 
-La partie operateur correspond aux opérations à effectuer. Il existe 6 opérateurs différents :
+La partie operateur correspond aux opérations à effectuer. Il existe 7 opérateurs différents :
 
 
 "|" pour la somme de deux structures
@@ -35,8 +45,12 @@ La partie operateur correspond aux opérations à effectuer. Il existe 6 opérat
 
 "," pour les marges asymétriques : droite, gauche, arrière, avant, bas puis haut
 
+"/" pour supprimer la structure
 
-Le script génère automatiquement le contour externe en fonction de la loc (seuil à -700 UH pour le sein, -450 pour l'ORL sinon, par défaut -350 UH)
+
+Le script génère automatiquement le contour externe en fonction de la loc (seuil à -700 UH pour le sein, -350 pour l'ORL sinon, par défaut -300 UH)
+
+Le script génère automatiquement la table de traitement en fonction de la demande de l'utilisateur (via le fichier txt)
 
 Une ligne contenant le mot verbose en premiere ligne de chaque fichier txt définit le niveau de verbosité; c-à-d le niveau de dialogue du code
 Il existe deux niveaux :
@@ -97,7 +111,7 @@ itv --> structure 1
 5 --> 6.00 mm de marges en haut [mm]
 
 
--------> Il créé la même structure avec des larges asymétriques
+-------> Il créé la même structure avec des marges asymétriques
 
 // Création structure vide
 
@@ -106,6 +120,19 @@ PTV :
 PTV --> nom structure qui sera créée vide
 
 -------> Il créé une structure vide
+
+
+
+// Avec 1 structure
+
+PTV : /
+
+PTV --> nom de la structure 
+
+/ --> suppression de la structure du StructureSet
+
+-------> Il supprime la structure choisie
+
 
 
 // Avec deux structures
@@ -144,6 +171,8 @@ gtv --> structure 3 pour l'opération
 !!!!! Ici, les opérations sont réalisés dans l'ordre de lecture.
 
 -------> Il créé une structure correspondant à l'enchaînement des opérations
+
+
 
 
 ****************************************************************************************************************************

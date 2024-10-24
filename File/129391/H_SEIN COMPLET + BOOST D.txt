@@ -13,8 +13,8 @@ test : ptv boost ! 3
 z_ring Boost : z_ring boost # test
 test : /
 test : contour externe ! -5
-CTV_dosi : ctv sein d & test
-PTV_dosi : ptv sein d & test
+z_CTV seinD -5 : ctv sein d & test
+z_PTV seinD -5 : ptv sein d & test
 test : /
 PTV total : ptv sein d ! 0
 PTV total : ptv total | ptv susclav d
