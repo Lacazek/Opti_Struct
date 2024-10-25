@@ -102,7 +102,6 @@ namespace Structure_optimisation
                             Box_Loc_cible1.Visibility = Visibility.Visible;
                             text_Cible1.Visibility = Visibility.Visible;
 
-
                             text_Cible1.Text = (string)Targets_Definition.Targets.First()[0];
 
 

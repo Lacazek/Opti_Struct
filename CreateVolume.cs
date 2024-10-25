@@ -2,6 +2,7 @@
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -66,6 +67,8 @@ namespace Structure_optimisation
 
         internal void CreationVolume(string _userFileChoice, List<string> targets)
         {
+            string erreur = string.Empty;
+
             #region Body creation
             Structure BODY = _ss.Structures.Where(x => x.DicomType.ToUpper().Equals("EXTERNAL")).SingleOrDefault();
 
@@ -91,15 +94,22 @@ namespace Structure_optimisation
                     BODY = _ss.CreateAndSearchBody(_bodyParameters);
                     Message = $"Modification du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n";
                 }
+                else if (!_ss.Structures.Any(x => x.DicomType.ToLower().Equals("body")))
+                {
+                    _bodyParameters.LowerHUThreshold = -350;
+                    BODY = _ss.CreateAndSearchBody(_bodyParameters);
+                    Message = $"Création du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n";
+                }
                 else
                     Message = $"Aucune modification du contour externe\n";
+
                 Message = $"Modification de la couleur du contour externe en : vert (code RGB (0,255,0))\n";
                 BODY.Color = Color.FromRgb(0, 255, 0);
                 BODY.Id = "Contour externe";
             }
-            catch 
+            catch
             {
-                MessageError($"Erreur sur la structure : Contour externe");
+                erreur += $"Erreur sur la structure : Contour externe\n\n";
             }
             #endregion
 
@@ -240,7 +250,7 @@ namespace Structure_optimisation
                             Message = $"Erreur dans la manipulation de la table de traitement\n {ex.Message}";
                             Message = $"Erreur dans la création de la table de traitement";
                             Message = $"indice d'erreur : 1";
-                            MessageError($"Erreur sur la structure : table");
+                            erreur += $"Erreur sur la structure : table\n\n";
                         }
                     }
                     #endregion
@@ -321,8 +331,8 @@ namespace Structure_optimisation
                                         }
                                         catch
                                         {
-                                            MessageError($"Erreur sur la structure : {name} lors de l'opération de marges asymétriques de :\n {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[4]} mm en arrière," +
-                                                $"\n{V_f[1]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} en haut\nsur {V[0]}");
+                                            erreur += $"Erreur sur la structure : {name} lors de l'opération de marges asymétriques de : {V_f[0]} mm à droite,{V_f[3]} mm à gauche,{V_f[4]} mm en arrière," +
+                                                $"{V_f[1]} mm en avant,{V_f[2]} mm en bas,{V_f[5]} en haut sur {V[0]}\n\n";
                                             string[] ErrorStruct = { myStruct.DicomType, myStruct.Id };
                                             _ss.RemoveStructure(myStruct);
                                             _ss.AddStructure(ErrorStruct[0], ErrorStruct[1]);
@@ -339,7 +349,7 @@ namespace Structure_optimisation
                                         }
                                         catch
                                         {
-                                            MessageError($"Erreur sur la structure : {name} lors de l'opération de marges de {V[1]} symétriques sur {V[0]}");
+                                            erreur += $"Erreur sur la structure {name} lors de l'opération de marges de {V[1]} mm symétriques sur {V[0]}\n\n";
                                             string[] ErrorStruct = { myStruct.DicomType, myStruct.Id };
                                             _ss.RemoveStructure(myStruct);
                                             _ss.AddStructure(ErrorStruct[0], ErrorStruct[1]);
@@ -457,7 +467,7 @@ namespace Structure_optimisation
                                         Message = $"La structure de l'utilisateur est ajoutée vide";
                                         Message = $"Indice erreur : 3";
 
-                                        MessageError($"Erreur sur la structure {name} lors l'opération multiple {line}");
+                                        erreur += $"Erreur sur la structure {name} lors l'opération multiple {line}\n\n";
                                         string[] ErrorStruct = { _StructureInter.DicomType, _StructureInter.Id };
                                         _ss.RemoveStructure(_StructureInter);
                                         _ss.AddStructure(ErrorStruct[0], ErrorStruct[1]);
@@ -524,7 +534,7 @@ namespace Structure_optimisation
                                         Message = $"La structure de l'utilisateur est ajoutée vide";
                                         Message = $"Indice erreur : 4";
 
-                                        MessageError($"Erreur sur la structure {name} lors l'opération {key} sur  {V[0]} et {V[1]}");
+                                        erreur += $"Erreur sur la structure {name} lors l'opération {key} sur  {V[0]} et {V[1]}\n\n";
                                         string[] ErrorStruct = { myStruct.DicomType, myStruct.Id };
                                         _ss.RemoveStructure(myStruct);
                                         _ss.AddStructure(ErrorStruct[0], ErrorStruct[1]);
@@ -554,7 +564,7 @@ namespace Structure_optimisation
                                     Message = $"{ex.Message}";
                                     Message = $"La structure de l'utilisateur est non modifiée";
                                     Message = $"Indice erreur : 5";
-                                    MessageError($"Erreur sur la structure {name} lors l'opération de suppression");
+                                    erreur += $"Erreur sur la structure {name} lors l'opération de suppression\n\n";
                                     continue;
                                 }
                             }
@@ -592,7 +602,7 @@ namespace Structure_optimisation
                                 Message = $"{ex.Message}";
                                 Message = $"La structure de l'utilisateur n'a pas pu être ajoutée";
                                 Message = $"Indice erreur : 6";
-                                MessageError($"Erreur sur la structure {name} lors l'opération de création de structure vide");
+                                erreur += $"Erreur sur la structure {name} lors l'opération de création de structure vide\n\n";
                                 break;
                             }
                         }
@@ -611,6 +621,7 @@ namespace Structure_optimisation
                 }
                 Message = "\n**********************************************************************************************************\n";
             }
+            MessageError(erreur);
             #endregion
 
             if (verbose >= 0)
@@ -633,7 +644,7 @@ namespace Structure_optimisation
         #region Message
         internal void MessageError(string erreur)
         {
-            MessageBox.Show(erreur, "Erreur de structure", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+            MessageBox.Show(erreur, "Récapitulatif des erreurs", MessageBoxButton.OKCancel, MessageBoxImage.Error);
         }
         internal string Message
         {

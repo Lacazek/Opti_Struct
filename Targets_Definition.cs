@@ -77,7 +77,7 @@ namespace Opti_Struct
             //Loge
             if (index.ToLower().Contains("loge"))
             {
-
+                _targets.Add(new[] { "PTV 2", "PTV 1" });
             }
 
             //Rectum
@@ -112,9 +112,6 @@ namespace Opti_Struct
                 else
                     _targets.Add(new[] { "PTV" });
             }
-
         }
-
-
     }
 }
