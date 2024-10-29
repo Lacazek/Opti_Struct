@@ -4,7 +4,12 @@ using System.ComponentModel;
 using VMS.TPS.Common.Model.API;
 using System.IO;
 using System.Reflection;
-using Opti_Struct;
+
+//***************************************************************
+//
+// Cette classe est le modèle de l'application
+// Elle se veut centrale afin d'ordonner les échanges et MaJ
+// Les classes, dans ce script, pioche dans les datas issues dans le modèle
 
 namespace Structure_optimisation
 {
@@ -27,7 +32,7 @@ namespace Structure_optimisation
 			FillList();
 
             FileInfo _fileinfo = new FileInfo("Opti_Struct\\LogFile.txt");
-            if (_fileinfo.Exists && _fileinfo.Length > 500 * 1000)
+            if (_fileinfo.Exists && _fileinfo.Length > 300 * 1000)
                 _fileinfo.Delete();
             _logFile = new StreamWriter("Opti_Struct\\LogFile.txt", true);
 

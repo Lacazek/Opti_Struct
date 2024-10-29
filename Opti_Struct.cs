@@ -7,8 +7,13 @@ using Structure_optimisation;
 [assembly: ESAPIScript(IsWriteable = true)]
 [assembly: AssemblyVersion("2.0.0.1")]
 
+//***************************************************************
+//
+// Il s'agit du main
+
 namespace VMS.TPS
 {
+
 	public class Script
 	{
 		public Script()

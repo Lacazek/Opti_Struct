@@ -6,6 +6,10 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Linq;
 
+//***************************************************************
+//
+// Cette classe gère toutes les problématique de chemin et fichier
+
 namespace Structure_optimisation
 {
 

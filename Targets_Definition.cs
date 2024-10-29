@@ -1,11 +1,11 @@
 ﻿using Structure_optimisation;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using VMS.TPS.Common.Model.API;
+
+
+//***************************************************************
+//
+// Cette classe permet d'alimenter les Text bloc pour guider l'utilisateur dans le choix des volumes
+// Elle est static afin d'être accessible de n'importe où
 
 namespace Opti_Struct
 {
@@ -31,11 +31,11 @@ namespace Opti_Struct
             {
                 if (index.ToLower().Contains("seul"))
                     _targets.Add(new[] { "CTV sein" });
+                else if (index.ToLower().Contains("complet") && index.ToLower().Contains("boost"))
+                    _targets.Add(new[] { "CTV sein", "CTV CMI", "CTV Sus Clav", "CTV Sous Clav", "CTV Axillaire", "CTV Boost" });
                 else if (index.ToLower().Contains("boost"))
                     _targets.Add(new[] { "CTV sein", "CTV Boost" });
-                else if (index.ToLower().Contains("Complet") && index.ToLower().Contains("boost"))
-                    _targets.Add(new[] { "CTV sein", "CTV CMI", "CTV Sus Clav", "CTV Sous Clav", "CTV Axillaire", "CTV Boost" });
-                else if (index.ToLower().Contains("Complet"))
+                else if (index.ToLower().Contains("complet"))
                     _targets.Add(new[] { "CTV sein", "CTV CMI", "CTV Sus Clav", "CTV Sous Clav", "CTV Axillaire" });
             }
 
@@ -81,9 +81,12 @@ namespace Opti_Struct
             }
 
             //Rectum
-            if (index.ToLower().Contains("rectum"))
+            if (index.ToLower().Trim().Contains("canalanal"))
             {
-
+                if (index.ToLower().Contains("boost"))
+                    _targets.Add(new[] { "PTV 1", "PTV 2" });
+                else
+                    _targets.Add(new[] { "PTV 1" });
             }
 
             //Col uterin

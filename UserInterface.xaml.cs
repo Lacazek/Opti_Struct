@@ -1,13 +1,17 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using VMS.TPS.Common.Model.API;
 using Ookii.Dialogs.Wpf;
-using System.Windows.Forms.Design;
 using Opti_Struct;
+using System.Windows.Input;
+
+//***************************************************************
+//
+// Cette classe gère l'interface entre le script et l'utilisateur
+// Il s'agit de la fenêtre qui s'ouvre lors de l'exécution du script
 
 namespace Structure_optimisation
 {
@@ -19,6 +23,7 @@ namespace Structure_optimisation
         private UserInterfaceModel _model;
         private List<string> _targets;
         private int _ciblesTrouvees;
+        private bool isDropDownOpen = false;
 
         public UserInterface(ScriptContext context)
         {
@@ -54,14 +59,19 @@ namespace Structure_optimisation
             {
                 Box_Loc.Items.Add(item);
             }
+            string[] WaitedTargets = { "ptv", "ctv", "gtv", "itv", "prostate", "vs" };
+
             foreach (var item in (_model.GetContext.StructureSet.Structures.OrderBy(s => s.Id)))
             {
+                if (WaitedTargets.Any(target => item.Id.ToLower().Contains(target)) || WaitedTargets.Any(type => item.DicomType.ToLower().Equals(type, StringComparison.OrdinalIgnoreCase)))
+                { 
                 Box_Loc_cible1.Items.Add(item.Id);
                 Box_Loc_cible2.Items.Add(item.Id);
                 Box_Loc_cible3.Items.Add(item.Id);
                 Box_Loc_cible4.Items.Add(item.Id);
                 Box_Loc_cible5.Items.Add(item.Id);
                 Box_Loc_cible6.Items.Add(item.Id);
+            }
             }
         }
 
@@ -301,6 +311,7 @@ namespace Structure_optimisation
         #region Path
         private void Button_Click_path(object sender, RoutedEventArgs e)
         {
+
             var folderPicker = new VistaFolderBrowserDialog
             {
                 Description = "Sélectionnez un dossier",
@@ -403,6 +414,126 @@ namespace Structure_optimisation
                     _targets[5] = Box_Loc_cible6.SelectedItem.ToString();
 
             }
+        }
+
+        private void ComboBox_PreviewMouseWheel_loc(object sender, MouseWheelEventArgs e)
+        {
+            if (!isDropDownOpen)
+            {
+                e.Handled = true;
+            }
+        }
+        private void ComboBox_DropDownOpened_loc(object sender, EventArgs e)
+        {
+            isDropDownOpen = true;
+        }
+
+        private void ComboBox_DropDownClosed_loc(object sender, EventArgs e)
+        {
+            isDropDownOpen = false;
+        }
+
+
+        private void ComboBox_PreviewMouseWheel_cible1(object sender, MouseWheelEventArgs e)
+        {
+            if (!isDropDownOpen)
+            {
+                e.Handled = true;
+            }
+        }
+        private void ComboBox_DropDownOpened_cible1(object sender, EventArgs e)
+        {
+            isDropDownOpen = true;
+        }
+        private void ComboBox_DropDownClosed_cible1(object sender, EventArgs e)
+        {
+            isDropDownOpen = false;
+        }
+
+
+        private void ComboBox_PreviewMouseWheel_cible2(object sender, MouseWheelEventArgs e)
+        {
+            if (!isDropDownOpen)
+            {
+                e.Handled = true;
+            }
+        }
+        private void ComboBox_DropDownOpened_cible2(object sender, EventArgs e)
+        {
+            isDropDownOpen = true;
+        }
+        private void ComboBox_DropDownClosed_cible2(object sender, EventArgs e)
+        {
+            isDropDownOpen = false;
+        }
+
+
+        private void ComboBox_PreviewMouseWheel_cible3(object sender, MouseWheelEventArgs e)
+        {
+            if (!isDropDownOpen)
+            {
+                e.Handled = true;
+            }
+        }
+        private void ComboBox_DropDownOpened_cible3(object sender, EventArgs e)
+        {
+            isDropDownOpen = true;
+        }
+        private void ComboBox_DropDownClosed_cible3(object sender, EventArgs e)
+        {
+            isDropDownOpen = false;
+        }
+
+
+        private void ComboBox_PreviewMouseWheel_cible4(object sender, MouseWheelEventArgs e)
+        {
+            if (!isDropDownOpen)
+            {
+                e.Handled = true;
+            }
+        }
+        private void ComboBox_DropDownOpened_cible4(object sender, EventArgs e)
+        {
+            isDropDownOpen = true;
+        }
+        private void ComboBox_DropDownClosed_cible4(object sender, EventArgs e)
+        {
+            isDropDownOpen = false;
+        }
+
+
+        private void ComboBox_PreviewMouseWheel_cible5(object sender, MouseWheelEventArgs e)
+        {
+            if (!isDropDownOpen)
+            {
+                e.Handled = true;
+            }
+        }
+        private void ComboBox_DropDownOpened_cible5(object sender, EventArgs e)
+        {
+            isDropDownOpen = true;
+        }
+        private void ComboBox_DropDownClosed_cible5(object sender, EventArgs e)
+        {
+            isDropDownOpen = false;
+        }
+
+
+
+        private void ComboBox_PreviewMouseWheel_cible6(object sender, MouseWheelEventArgs e)
+        {
+            if (!isDropDownOpen)
+            {
+                e.Handled = true;
+            }
+        }
+        private void ComboBox_DropDownOpened_cible6(object sender, EventArgs e)
+        {
+            isDropDownOpen = true;
+        }
+        private void ComboBox_DropDownClosed_cible6(object sender, EventArgs e)
+        {
+            isDropDownOpen = false;
         }
 
     }

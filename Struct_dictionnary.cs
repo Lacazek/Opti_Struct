@@ -4,6 +4,12 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using VMS.TPS.Common.Model.API;
 
+//***************************************************************
+//
+// Cette classe gère les problématiques de mismatch de nom de structures
+// Elle implémente du REGEX 
+// Elle implémente des conditons permettant de resserrer la recherche
+
 namespace Opti_Struct
 {
     internal class Struct_dictionnary

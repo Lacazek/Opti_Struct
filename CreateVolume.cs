@@ -1,17 +1,21 @@
 ﻿using Opti_Struct;
 using System;
-using System.CodeDom;
+
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using VMS.TPS.Common.Model.API;
 using VMS.TPS.Common.Model.Types;
 
+//***************************************************************
+//
+// Cette classe est la classe d'application principale
+// Elle permet les opérations sur les structures 
+// Elle s'assure également de la pertinence des structures engagées dans les opérations
+// Elle alimente le fichier log qui permet un décriptage des actions effectuées
 
 namespace Structure_optimisation
 {
@@ -67,7 +71,36 @@ namespace Structure_optimisation
 
         internal void CreationVolume(string _userFileChoice, List<string> targets)
         {
-            string erreur = string.Empty;
+            string erreur = string.Empty, information = string.Empty;
+
+
+            #region Suppression des anciennes structures d'opti
+            // Suppresion des anciennes traces dans eclipse de l'exécution en auto :
+            // _auto dans le nom du SS et auto dans le nom des Structures créées
+            // On commence par supprimer toutes les structures auto pour pouvoir les recréer
+            Message = $"\nSuppression des anciennes structures auto ...";
+            try
+            {
+                if (!_ss.Id.Contains("auto"))
+                {
+                    //_ss.Id = _ss.Id + "_auto";
+                    _ss.Id = "Dosi_auto";
+                    Message = $"StructureSet renommé en {_ss.Id}";
+                }
+            }
+            catch { MessageBox.Show("La dénomination auto n'a pas été appliqué au StructureSet car le nombre de caratère dépasse 16"); }
+            try
+            {
+                _ss.Structures.Where(s => s.Id.Contains("auto")).ToList().ForEach(s => _ss.RemoveStructure(s));
+                Message = $"Suppression réalisée avec succés";
+            }
+            catch (Exception ex)
+            {
+                Message = $"Suppression en échec";
+                Message = ex.Message;
+            }
+            Message = "\n";
+            #endregion
 
             #region Body creation
             Structure BODY = _ss.Structures.Where(x => x.DicomType.ToUpper().Equals("EXTERNAL")).SingleOrDefault();
@@ -86,6 +119,7 @@ namespace Structure_optimisation
                     _bodyParameters.LowerHUThreshold = -700;
                     BODY = _ss.CreateAndSearchBody(_bodyParameters);
                     Message = $"Modification du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n";
+                    information += $"✅ Modification du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n\n";
                 }
                 else if (_userFileChoice.ToLower().Contains("orl"))
                 {
@@ -93,23 +127,29 @@ namespace Structure_optimisation
                     _bodyParameters.LowerHUThreshold = -350;
                     BODY = _ss.CreateAndSearchBody(_bodyParameters);
                     Message = $"Modification du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n";
+                    information += $"✅ Modification du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n\n";
                 }
                 else if (!_ss.Structures.Any(x => x.DicomType.ToLower().Equals("body")))
                 {
                     _bodyParameters.LowerHUThreshold = -350;
                     BODY = _ss.CreateAndSearchBody(_bodyParameters);
                     Message = $"Création du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n";
+                    information += $"✅ Création du contour externe ; seuil défini à : {_bodyParameters.LowerHUThreshold.ToString()} UH\n\n";
                 }
                 else
+                {
                     Message = $"Aucune modification du contour externe\n";
+                    information += $"✅ Aucune modification du contour externe\n\n";
+                }
 
                 Message = $"Modification de la couleur du contour externe en : vert (code RGB (0,255,0))\n";
                 BODY.Color = Color.FromRgb(0, 255, 0);
                 BODY.Id = "Contour externe";
+                BODY.Comment = "Structure générée automatiquement";
             }
             catch
             {
-                erreur += $"Erreur sur la structure : Contour externe\n\n";
+                erreur += $"❌ Une erreur de nom ou de couleur ou de commentaire est survenue sur la structure Contour externe\n\n";
             }
             #endregion
 
@@ -159,7 +199,6 @@ namespace Structure_optimisation
             srf = new StreamReader(System.IO.Path.GetFullPath(_userFileChoice));
             List<string> nSplit = new List<string>();
             List<char> indexeur = new List<char>();
-            List<string> _operation = new List<string>();
             line = "Start";
             Random col = new Random();
 
@@ -172,9 +211,9 @@ namespace Structure_optimisation
                 byte color2 = (byte)col.Next(100, 200);
                 nSplit.Clear();
                 indexeur.Clear();
-                _operation.Clear();
                 Structure myStruct, _StructureInter, _StructureInter1, _StructureInter2;
                 Message = $"Travail sur la structure {name}";
+                bool alreadyDone = false;
 
                 try
                 {
@@ -204,25 +243,29 @@ namespace Structure_optimisation
                             {
                                 _ss.AddCouchStructures("RDS_Couch_Top", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, null, null, null, out couchStructureList, out ImageResized, out error);
                                 Message = $"Ajout de la structure Table Halcyon";
-                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Halcyon générée via script automatique");
+                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Halcyon générée automatiquement");
+                                name = "Table Halcyon";
                             }
                             else if (line.ToLower().Equals("fine"))
                             {
                                 _ss.AddCouchStructures("Exact_IGRT_Couch_Top_thin", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
                                 Message = $"Ajout de la structure Table Truebeam fine";
-                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Truebeam fine générée via script automatique");
+                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Truebeam fine générée automatiquement");
+                                name = "Table Truebeam fine";
                             }
                             else if (line.ToLower().Equals("moyenne"))
                             {
                                 _ss.AddCouchStructures("Exact_IGRT_Couch_Top_medium", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
                                 Message = $"Ajout de la structure Table Truebeam medium";
-                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Truebeam médium générée via script automatique");
+                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Truebeam médium générée automatiquement");
+                                name = "Table Truebeam moyenne";
                             }
                             else if (line.ToLower().Equals("epaisse"))
                             {
                                 _ss.AddCouchStructures("Exact_IGRT_Couch_Top_thick", PatientOrientation.NoOrientation, RailPosition.In, RailPosition.In, surfaceHu, interiorHu, null, out couchStructureList, out ImageResized, out error);
                                 Message = $"Ajout de la structure Table Truebeam epaisse";
-                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Truebeam épaisse générée via script automatique");
+                                _ss.Structures.Where(x => x.DicomType.ToLower().Equals("support")).ToList().ForEach(structure => structure.Comment = "Table Truebeam épaisse générée automatiquement");
+                                name = "Table Truebeam épaisse";
                             }
 
                             VVector Isocenter = _course.PlanSetups.SelectMany(ps => ps.Beams).Where(b => b.IsocenterPosition != null).Select(b => b.IsocenterPosition).FirstOrDefault();
@@ -244,13 +287,14 @@ namespace Structure_optimisation
                             Message = $"********** Ajout de la table de traitement **********";
                             Message = $"************ Positionnement non vérifié *************";
                             Message = $"*****************************************************";
+                            information += $"✅ Structure de table {name} créée \n\n";
                         }
                         catch (Exception ex)
                         {
                             Message = $"Erreur dans la manipulation de la table de traitement\n {ex.Message}";
                             Message = $"Erreur dans la création de la table de traitement";
                             Message = $"indice d'erreur : 1";
-                            erreur += $"Erreur sur la structure : table\n\n";
+                            erreur += $"❌ Erreur sur la structure : table\n\n";
                         }
                     }
                     #endregion
@@ -261,7 +305,7 @@ namespace Structure_optimisation
                     foreach (char key in filterTags)
                     {
 
-                        if (line.Contains(key))
+                        if (line.Contains(key) && !alreadyDone)
                         {
                             #region Margin
                             if (key == filterTags[4]) // cas x+marge
@@ -328,10 +372,11 @@ namespace Structure_optimisation
                                             myStruct.SegmentVolume = Struct1.SegmentVolume.AsymmetricMargin(_margin);
                                             Message = $"Marge asymétriques de {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[4]} mm en arrière,\n{V_f[1]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} mm haut sur la structure : {Struct1.Id}";
                                             Message = $"Structure {name} créée";
+                                            information += $"✅ Marge asymétriques de {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[4]} mm en arrière,\n{V_f[1]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} mm haut sur la structure : {Struct1.Id}\n\n"; ;
                                         }
                                         catch
                                         {
-                                            erreur += $"Erreur sur la structure : {name} lors de l'opération de marges asymétriques de : {V_f[0]} mm à droite,{V_f[3]} mm à gauche,{V_f[4]} mm en arrière," +
+                                            erreur += $"❌ Erreur sur la structure : {name} lors de l'opération de marges asymétriques de : {V_f[0]} mm à droite,{V_f[3]} mm à gauche,{V_f[4]} mm en arrière," +
                                                 $"{V_f[1]} mm en avant,{V_f[2]} mm en bas,{V_f[5]} en haut sur {V[0]}\n\n";
                                             string[] ErrorStruct = { myStruct.DicomType, myStruct.Id };
                                             _ss.RemoveStructure(myStruct);
@@ -346,10 +391,11 @@ namespace Structure_optimisation
                                             myStruct.SegmentVolume = Struct1.Margin(float.Parse(V[1]));
                                             Message = $"Marge symétriques de {V[1]} mm sur la structure : {Struct1.Id}";
                                             Message = $"Structure {name} créée";
+                                            information += $"✅ Marge symétriques de {V[1]} mm sur la structure : {Struct1.Id}\n\n";
                                         }
                                         catch
                                         {
-                                            erreur += $"Erreur sur la structure {name} lors de l'opération de marges de {V[1]} mm symétriques sur {V[0]}\n\n";
+                                            erreur += $"❌ Erreur sur la structure {name} lors de l'opération de marges de {V[1]} mm symétriques sur {V[0]}\n\n";
                                             string[] ErrorStruct = { myStruct.DicomType, myStruct.Id };
                                             _ss.RemoveStructure(myStruct);
                                             _ss.AddStructure(ErrorStruct[0], ErrorStruct[1]);
@@ -358,6 +404,7 @@ namespace Structure_optimisation
                                     }
                                     if (!name.ToLower().Contains("externe"))
                                         myStruct.SegmentVolume = myStruct.And(BODY);
+                                    myStruct.Comment = "Structure générée automatiquement";
                                     continue;
                                 }
                                 catch (Exception ex)
@@ -381,8 +428,10 @@ namespace Structure_optimisation
 
                                 string[] _parts = line.Split(filterTags, StringSplitOptions.RemoveEmptyEntries);
 
-                                if (filterTags.Any(c => line.Count(ch => ch == c) > 1)) // plusieurs structures
+                                //if (filterTags.Any(c => line.Count(ch => ch == c) > 1)) // plusieurs structures
+                                if (filterTags.Sum(tag => line.Count(ch => ch == tag)) >  1)
                                 {
+                                    MessageBox.Show(filterTags.Sum(tag => line.Count(ch => ch == tag)).ToString());
                                     foreach (string part in _parts)
                                     {
                                         string part_corr = part; // modif
@@ -429,36 +478,44 @@ namespace Structure_optimisation
                                             _StructureInter1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[0].Trim().ToLower())).SingleOrDefault();
 
                                         _StructureInter2 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[1].Trim().ToLower())).SingleOrDefault();
-                                        _operation.Add(nSplit[0] + " " + indexeur[0] + " " + nSplit[1]);
-
+                                        
+                                        string operation = (nSplit[0] + " " + indexeur[0] + " " + nSplit[1]);
 
                                         foreach (var key2 in _structure.Keys)
                                         {
-                                            if (_operation[0].Contains(key2))
+                                            if (operation.Contains(key2))
                                             {
                                                 _StructureInter.SegmentVolume = _StructureInter1.Margin(0.00);
                                                 _structure[key2](_StructureInter, _StructureInter2);
                                             }
                                         }
 
+                                        Message = $"Operation sur les structures : {_StructureInter.Id} et {_StructureInter2.Id}";
+                                        Message = $"Structure {name} créée";
+
                                         nSplit[0] = name.ToLower();
 
-                                        for (int i = 2; i < nSplit.Count; i++)
+                                        for (int i = 1; i < nSplit.Count-1; i++)
                                         {
-                                            _operation.Add(nSplit[0] + " " + indexeur[i - 1] + " " + nSplit[i]);
-                                            foreach (var key2 in _structure.Keys)
-                                            {
-                                                if (_operation[i - 1].Contains(key2))
-                                                {
-                                                    _StructureInter1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[i].ToLower())).SingleOrDefault();
-                                                    _structure[key2](_StructureInter, _StructureInter1);
-                                                }
-                                            }
+                                            operation = nSplit[0] + " " + indexeur[i] + " " + nSplit[i+1];
+
+                                            MessageBox.Show(operation);
+                                           // foreach (var key2 in _structure.Keys)
+                                            //{
+                                                //if (operation.Contains(key2))
+                                                //{
+                                                    _StructureInter1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[i+1].ToLower())).SingleOrDefault();
+                                                    _structure[indexeur[i ]](_StructureInter, _StructureInter1);
+                                               // }
+                                           // }
                                         }
                                         _StructureInter.SegmentVolume = _StructureInter.And(BODY);
+                                        _StructureInter.Comment = "Structure générée automatiquement";
 
-                                        Message = $"Operation sur les structures : {_StructureInter1.Id} et {_StructureInter2.Id}";
+                                        Message = $"Operation sur les structures : {_StructureInter.Id} et {_StructureInter1.Id}";
                                         Message = $"Structure {name} créée";
+                                        information += $"✅ {_StructureInter.Id} : Operation sur les structures : {_StructureInter1.Id} et {_StructureInter2.Id}\n\n";
+                                        alreadyDone = true;
                                         continue;
                                     }
                                     catch (Exception ex)
@@ -467,12 +524,14 @@ namespace Structure_optimisation
                                         Message = $"La structure de l'utilisateur est ajoutée vide";
                                         Message = $"Indice erreur : 3";
 
-                                        erreur += $"Erreur sur la structure {name} lors l'opération multiple {line}\n\n";
+                                        erreur += $"❌ Erreur sur la structure {name} lors l'opération multiple {line}\n\n";
                                         string[] ErrorStruct = { _StructureInter.DicomType, _StructureInter.Id };
                                         _ss.RemoveStructure(_StructureInter);
                                         _ss.AddStructure(ErrorStruct[0], ErrorStruct[1]);
+                                        alreadyDone = true;
                                         continue;
                                     }
+
                                 }
                                 #endregion
 
@@ -482,9 +541,8 @@ namespace Structure_optimisation
                                 else // Opération sur 2 structures
                                 {
                                     string[] V = line.Split(key);
-
-                                    Message = $"********** Operation complexe **********";
-                                    Message = $"Operation complexe {key}";
+                                    Message = $"********** Operation simple **********";
+                                    Message = $"Operation simple {key}";
                                     Message = $"Structures attendues : {V[0]} et {V[1]}";
 
                                     if (!_ss.Structures.Any(x => x.Id.ToLower().Trim().Equals(V[0].ToLower().Trim())))  // modif
@@ -523,9 +581,11 @@ namespace Structure_optimisation
                                         myStruct.SegmentVolume = Struct1.Margin(0.00);
                                         _structure[key](myStruct, Struct2);
                                         myStruct.SegmentVolume = myStruct.And(BODY);
+                                        myStruct.Comment = "Structure générée automatiquement";
 
                                         Message = $"Operation sur les structures : {Struct1.Id} et {Struct2.Id}";
                                         Message = $"Structure {name} créée";
+                                        information += $"✅ Operation sur les structures : {Struct1.Id} et {Struct2.Id}\n\n";
                                         continue;
                                     }
                                     catch (Exception ex)
@@ -534,7 +594,7 @@ namespace Structure_optimisation
                                         Message = $"La structure de l'utilisateur est ajoutée vide";
                                         Message = $"Indice erreur : 4";
 
-                                        erreur += $"Erreur sur la structure {name} lors l'opération {key} sur  {V[0]} et {V[1]}\n\n";
+                                        erreur += $"❌ Erreur sur la structure {name} lors l'opération {key} sur  {V[0]} et {V[1]}\n\n";
                                         string[] ErrorStruct = { myStruct.DicomType, myStruct.Id };
                                         _ss.RemoveStructure(myStruct);
                                         _ss.AddStructure(ErrorStruct[0], ErrorStruct[1]);
@@ -557,6 +617,7 @@ namespace Structure_optimisation
                                     _ss.RemoveStructure(_ss.Structures.FirstOrDefault(x => Regex.IsMatch(x.Id, @"\bt\s*e\s*s\s*t*[_\s]*(?:[1-9]|10)?.*?(?!\bintestin\b)", RegexOptions.IgnoreCase)));
                                     Message = $"Suppression de structure";
                                     Message = $"Structure {name} supprimée";
+                                    information += $"✅ Structure {name} supprimée\n\n";
                                     continue;
                                 }
                                 catch (Exception ex)
@@ -564,7 +625,7 @@ namespace Structure_optimisation
                                     Message = $"{ex.Message}";
                                     Message = $"La structure de l'utilisateur est non modifiée";
                                     Message = $"Indice erreur : 5";
-                                    erreur += $"Erreur sur la structure {name} lors l'opération de suppression\n\n";
+                                    erreur += $"❌ Erreur sur la structure {name} lors l'opération de suppression\n\n";
                                     continue;
                                 }
                             }
@@ -593,8 +654,10 @@ namespace Structure_optimisation
                                     myStruct.Color = Color.FromRgb(color1, color2, 255);
                                 }
 
+                                myStruct.Comment = "Structure générée automatiquement";
                                 Message = $"Création de structure";
                                 Message = $"Structure {name} créée";
+                                information += $"✅ Structure {name} créée\n\n";
                                 break;
                             }
                             catch (Exception ex)
@@ -602,7 +665,7 @@ namespace Structure_optimisation
                                 Message = $"{ex.Message}";
                                 Message = $"La structure de l'utilisateur n'a pas pu être ajoutée";
                                 Message = $"Indice erreur : 6";
-                                erreur += $"Erreur sur la structure {name} lors l'opération de création de structure vide\n\n";
+                                erreur += $"❌ Erreur sur la structure {name} lors l'opération de création de structure vide\n\n";
                                 break;
                             }
                         }
@@ -621,11 +684,17 @@ namespace Structure_optimisation
                 }
                 Message = "\n**********************************************************************************************************\n";
             }
-            MessageError(erreur);
+
+            MessageRecap(information, erreur, System.IO.Path.GetFileNameWithoutExtension(_userFileChoice));
+
+            foreach (var autostruct in _ss.Structures)
+            {
+                if (autostruct.Comment.Contains("automatiquement"))
+                    autostruct.Id = autostruct.Id + "_auto";
+            }
+
             #endregion
 
-            if (verbose >= 0)
-                MessageBox.Show("Les structures ont été créées.\nMerci de les vérifier !", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             srf.Close();
             try
             {
@@ -642,9 +711,9 @@ namespace Structure_optimisation
         }
 
         #region Message
-        internal void MessageError(string erreur)
+        internal void MessageRecap(string information, string erreur, string file)
         {
-            MessageBox.Show(erreur, "Récapitulatif des erreurs", MessageBoxButton.OKCancel, MessageBoxImage.Error);
+            MessageBox.Show($"Protocole utilisé : {file}\n\n" + information + "\n\n" + erreur, "Récapitulatif", MessageBoxButton.OKCancel, MessageBoxImage.Information);
         }
         internal string Message
         {
