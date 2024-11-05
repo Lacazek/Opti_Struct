@@ -83,7 +83,6 @@ namespace Structure_optimisation
             {
                 if (!_ss.Id.Contains("auto"))
                 {
-                    //_ss.Id = _ss.Id + "_auto";
                     _ss.Id = "Dosi_auto";
                     Message = $"StructureSet renommé en {_ss.Id}";
                 }
@@ -372,7 +371,7 @@ namespace Structure_optimisation
                                             myStruct.SegmentVolume = Struct1.SegmentVolume.AsymmetricMargin(_margin);
                                             Message = $"Marge asymétriques de {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[4]} mm en arrière,\n{V_f[1]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} mm haut sur la structure : {Struct1.Id}";
                                             Message = $"Structure {name} créée";
-                                            information += $"✅ Marge asymétriques de {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[4]} mm en arrière,\n{V_f[1]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} mm haut sur la structure : {Struct1.Id}\n\n"; ;
+                                            information += $"✅ {name} : Marge asymétriques de {V_f[0]} mm à droite,\n{V_f[3]} mm à gauche,\n{V_f[4]} mm en arrière,\n{V_f[1]} mm en avant,\n{V_f[2]} mm en bas,\n{V_f[5]} mm haut sur la structure : {Struct1.Id}\n\n"; ;
                                         }
                                         catch
                                         {
@@ -391,7 +390,7 @@ namespace Structure_optimisation
                                             myStruct.SegmentVolume = Struct1.Margin(float.Parse(V[1]));
                                             Message = $"Marge symétriques de {V[1]} mm sur la structure : {Struct1.Id}";
                                             Message = $"Structure {name} créée";
-                                            information += $"✅ Marge symétriques de {V[1]} mm sur la structure : {Struct1.Id}\n\n";
+                                            information += $"✅ {name} : Marge symétriques de {V[1]} mm sur la structure : {Struct1.Id}\n\n";
                                         }
                                         catch
                                         {
@@ -585,7 +584,7 @@ namespace Structure_optimisation
 
                                         Message = $"Operation sur les structures : {Struct1.Id} et {Struct2.Id}";
                                         Message = $"Structure {name} créée";
-                                        information += $"✅ Operation sur les structures : {Struct1.Id} et {Struct2.Id}\n\n";
+                                        information += $"✅ {name} : Operation sur les structures : {Struct1.Id} et {Struct2.Id}\n\n";
                                         continue;
                                     }
                                     catch (Exception ex)
@@ -617,7 +616,7 @@ namespace Structure_optimisation
                                     _ss.RemoveStructure(_ss.Structures.FirstOrDefault(x => Regex.IsMatch(x.Id, @"\bt\s*e\s*s\s*t*[_\s]*(?:[1-9]|10)?.*?(?!\bintestin\b)", RegexOptions.IgnoreCase)));
                                     Message = $"Suppression de structure";
                                     Message = $"Structure {name} supprimée";
-                                    information += $"✅ Structure {name} supprimée\n\n";
+                                    information += $"✅ {name} : Structure supprimée\n\n";
                                     continue;
                                 }
                                 catch (Exception ex)
@@ -657,7 +656,7 @@ namespace Structure_optimisation
                                 myStruct.Comment = "Structure générée automatiquement";
                                 Message = $"Création de structure";
                                 Message = $"Structure {name} créée";
-                                information += $"✅ Structure {name} créée\n\n";
+                                information += $"✅ {name} : Structure créée vide\n\n";
                                 break;
                             }
                             catch (Exception ex)
