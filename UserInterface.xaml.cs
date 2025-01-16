@@ -63,7 +63,7 @@ namespace Structure_optimisation
 
             foreach (var item in (_model.GetContext.StructureSet.Structures.OrderBy(s => s.Id)))
             {
-                if (WaitedTargets.Any(target => item.Id.ToLower().Contains(target)) || WaitedTargets.Any(type => item.DicomType.ToLower().Equals(type, StringComparison.OrdinalIgnoreCase)))
+                if ((WaitedTargets.Any(target => item.Id.ToLower().Contains(target)) || WaitedTargets.Any(type => item.DicomType.ToLower().Equals(type, StringComparison.OrdinalIgnoreCase))) && !item.IsEmpty)
                 { 
                 Box_Loc_cible1.Items.Add(item.Id);
                 Box_Loc_cible2.Items.Add(item.Id);

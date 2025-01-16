@@ -8,7 +8,7 @@ using System.Linq;
 
 //***************************************************************
 //
-// Cette classe gère toutes les problématique de chemin et fichier
+// Cette classe gère toutes les problématiques de chemin et fichier
 
 namespace Structure_optimisation
 {

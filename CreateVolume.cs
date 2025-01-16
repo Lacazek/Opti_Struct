@@ -1,6 +1,5 @@
 ﻿using Opti_Struct;
 using System;
-
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -430,7 +429,6 @@ namespace Structure_optimisation
                                 //if (filterTags.Any(c => line.Count(ch => ch == c) > 1)) // plusieurs structures
                                 if (filterTags.Sum(tag => line.Count(ch => ch == tag)) >  1)
                                 {
-                                    MessageBox.Show(filterTags.Sum(tag => line.Count(ch => ch == tag)).ToString());
                                     foreach (string part in _parts)
                                     {
                                         string part_corr = part; // modif
@@ -498,7 +496,6 @@ namespace Structure_optimisation
                                         {
                                             operation = nSplit[0] + " " + indexeur[i] + " " + nSplit[i+1];
 
-                                            MessageBox.Show(operation);
                                            // foreach (var key2 in _structure.Keys)
                                             //{
                                                 //if (operation.Contains(key2))
