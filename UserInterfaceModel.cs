@@ -4,6 +4,8 @@ using System.ComponentModel;
 using VMS.TPS.Common.Model.API;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Windows;
 
 //***************************************************************
 //
@@ -16,26 +18,25 @@ namespace Structure_optimisation
 
     internal class UserInterfaceModel : INotifyPropertyChanged
     {
-        private ScriptContext _context;
-		private readonly string _fisherMan;
-		private GetFile _file;
+        private readonly ScriptContext _context;
+        private readonly string _fisherMan;
+        private GetFile _file;
         private List<string> _localisation;
         private StreamWriter _logFile;
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public UserInterfaceModel(ScriptContext context, List<string> targets)
+        public UserInterfaceModel(ScriptContext context)
         {
             _context = context;
             _file = new GetFile(this);
             _localisation = new List<string>();
-			_fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
-			FillList();
+            _fisherMan = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).ToString(), "fisherMan4.png");
+            FillList();
 
-            FileInfo _fileinfo = new FileInfo("Opti_Struct\\LogFile.txt");
+            FileInfo _fileinfo = new FileInfo(@"LogFile.txt");
             if (_fileinfo.Exists && _fileinfo.Length > 300 * 1000)
                 _fileinfo.Delete();
-            _logFile = new StreamWriter("Opti_Struct\\LogFile.txt", true);
-
+            _logFile = new StreamWriter(@"LogFile.txt", true);
             _file.MessageChanged += MessageChanged;
 
 
@@ -50,61 +51,67 @@ namespace Structure_optimisation
             Message = $"Taille du jeu de travail : {Environment.WorkingSet}";
             Message = $"User : {Environment.UserName}\n";
             Message = $"Fichier ouvert\n";
+
+            UserInterface_Volume interfaceVolume = new UserInterface_Volume(this);
+            interfaceVolume.ShowDialog();
         }
 
         internal void FillList()
         {
-            foreach (var item in Directory.GetFiles(_file.GetDirectoryPath))
+            foreach (var item in Directory.GetFiles(_file.GetVolumePath))
             {
                 _localisation.Add(Path.GetFileNameWithoutExtension(item));
             }
             _localisation.Sort();
         }
+
         internal void ClearList()
         {
             _localisation.Clear();
         }
-        internal GetFile File
+
+        internal void CreateUserVolumeFile()
         {
-            get { return _file; }
+            _file.CreateUserVolumeFile();
+        }
+
+
+        #region get and set
+        internal ScriptContext GetContext
+        {
+            get { return _context; }
+        }
+        internal string GetPrescription
+        {
+            get { return _file.GetPrescription; }
         }
         internal string UserFile
         {
             get { return _file.UserFile; }
             set { _file.UserFile = value; }
         }
-        internal List<string> Targets
+        internal string UserPath
         {
-            set { _file.Targets = value; }
+            get { return _file.GetPath; }
+            set { _file.GetPath = value; }
         }
-        internal string GetDirectoryPath
+        internal string GetVolumePath
         {
-            get { return _file.GetDirectoryPath; }
-            set { _file.GetDirectoryPath = value; }
-        }
-        internal string GetUserPath
-        {
-            get { return _file.GetUserPath; }
-            set { _file.GetUserPath = value; }
+            get { return _file.GetVolumePath; }
+            set { _file.GetVolumePath = value; }
         }
         internal List<string> Localisation
         {
             get { return _localisation; }
         }
-        internal ScriptContext GetContext
+        internal List<string> Targets
         {
-            get { return _context; }
+            get { return _file.Targets; }
+            set { _file.Targets = value; }
         }
-        internal string Message
-        {
-            get { return _file.Message; }
-            set
-            {
-                _logFile.WriteLine(value);
-                _logFile.Flush();
-                OnPropertyChanged(nameof(_file.Message));
-            }
-        }
+        #endregion
+
+        #region update message
         internal void IsOpened(bool test)
         {
             if (test == true)
@@ -114,6 +121,17 @@ namespace Structure_optimisation
                 _logFile.WriteLine($"***************************Script terminé***************************");
                 _logFile.Close();
                 }
+        }
+
+        internal string Message
+        {
+            get { return _file.Message; }
+            set
+            {
+                _logFile.WriteLine(value);
+                _logFile.Flush();
+                OnPropertyChanged(nameof(_file.Message));
+            }
         }
 
         private void MessageChanged(object sender, string e)
@@ -126,6 +144,7 @@ namespace Structure_optimisation
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
     }
 }
 

@@ -1,4 +1,30 @@
-﻿using Opti_Struct;
+﻿/******************************************************************************
+ * Nom du fichier : CreateVolume.cs
+ * Auteur         : LACAZE Killian
+ * Date de création : [02/10/2024]
+ * Description    : [Brève description du contenu ou de l'objectif du code]
+ *
+ * Droits d'auteur © [2024], [LACAZE.K].
+ * Tous droits réservés.
+ * 
+ * Ce code a été développé exclusivement par LACAZE Killian. Toute utilisation de ce code 
+ * est soumise aux conditions suivantes :
+ * 
+ * 1. L'utilisation de ce code est autorisée uniquement à titre personnel ou professionnel, 
+ *    mais sans modification de son contenu.
+ * 2. Toute redistribution, copie, ou publication de ce code sans l'accord explicite 
+ *    de l'auteur est strictement interdite.
+ * 3. L'auteur assume la responsabilité de l'utilisation de ce code dans ses propres projets.
+ * 
+ * CE CODE EST FOURNI "EN L'ÉTAT", SANS AUCUNE GARANTIE, EXPRESSE OU IMPLICITE. 
+ * L'AUTEUR DÉCLINE TOUTE RESPONSABILITÉ POUR TOUT DOMMAGE OU PERTE RÉSULTANT 
+ * DE L'UTILISATION DE CE CODE.
+ *
+ * Toute utilisation non autorisée ou attribution incorrecte de ce code est interdite.
+ ******************************************************************************/
+
+
+using Opti_Struct;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,13 +58,16 @@ namespace Structure_optimisation
         public event EventHandler<string> MessageChanged;
         private int verbose;
         private Struct_dictionnary _dictionnary;
+        private UserInterfaceModel _model;
 
-        public CreateVolume(StructureSet ss, Course course, Image image)
+        #region Constructeurs
+        public CreateVolume(UserInterfaceModel model)
         {
             name = string.Empty;
-            _ss = ss;
-            _course = course;
-            _image = image;
+            _ss = model.GetContext.StructureSet;
+            _course = model.GetContext.Course;
+            _image = model.GetContext.Image;
+            _model = model;
             verbose = 1;
             filterTags = new char[] {
                 '|', // totalite
@@ -62,6 +91,7 @@ namespace Structure_optimisation
 };
             _dictionnary.MessageChanged += DictionnaryMessageChanged;
         }
+        #endregion
 
         private void _dictionnary_MessageChanged(object sender, string e)
         {
@@ -101,16 +131,16 @@ namespace Structure_optimisation
             #endregion
 
             #region Body creation
+
             Structure BODY = _ss.Structures.Where(x => x.DicomType.ToUpper().Equals("EXTERNAL")).SingleOrDefault();
-
-            SearchBodyParameters _bodyParameters = _ss.GetDefaultSearchBodyParameters();
-            _bodyParameters.KeepLargestParts = true;
-            _bodyParameters.FillAllCavities = true;
-            _bodyParameters.Smoothing = true;
-            _bodyParameters.SmoothingLevel = 2;
-
             try
             {
+                SearchBodyParameters _bodyParameters = _ss.GetDefaultSearchBodyParameters();
+                _bodyParameters.KeepLargestParts = true;
+                _bodyParameters.FillAllCavities = true;
+                _bodyParameters.Smoothing = true;
+                _bodyParameters.SmoothingLevel = 2;
+
                 if (_userFileChoice.ToLower().Contains("sein"))
                 {
                     _ss.RemoveStructure(BODY);
@@ -144,10 +174,13 @@ namespace Structure_optimisation
                 BODY.Color = Color.FromRgb(0, 255, 0);
                 BODY.Id = "Contour externe";
                 BODY.Comment = "Structure générée automatiquement";
+                // if (_ss.Structures.Any(x => x.IsHighResolution))
+                //    BODY.ConvertToHighResolution();
             }
             catch
             {
-                erreur += $"❌ Une erreur de nom ou de couleur ou de commentaire est survenue sur la structure Contour externe\n\n";
+                erreur += $"❌ la structure est peut être déjà approuvé un il existe une erreur de nom ou de couleur ou de commentaire " +
+                    $"sur la structure Contour externe\n\n";
             }
             #endregion
 
@@ -324,7 +357,7 @@ namespace Structure_optimisation
                         ?? _ss.Structures.FirstOrDefault(x => Regex.IsMatch(x.Id, string.Join(@".*", V[0].Trim().Select(c => Regex.Escape(c.ToString() + @"\s*"))), RegexOptions.IgnoreCase));
 
                                     if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(name.ToLower())))
-                                        if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase))
+                                        if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase) && !name.ToUpper().Contains("Z_"))
                                         {
                                             myStruct = _ss.AddStructure("PTV", name);
                                             myStruct.Color = Color.FromRgb(255, 0, 0);
@@ -344,6 +377,8 @@ namespace Structure_optimisation
                                     else
                                         myStruct = _ss.Structures.Where(x => x.Id.ToLower().Equals(name.ToLower())).SingleOrDefault();
 
+                                    if (Struct1.IsHighResolution)
+                                        myStruct.ConvertToHighResolution();
 
                                     // Asymetric margin
                                     if (line.Contains(filterTags[8]))
@@ -427,7 +462,7 @@ namespace Structure_optimisation
                                 string[] _parts = line.Split(filterTags, StringSplitOptions.RemoveEmptyEntries);
 
                                 //if (filterTags.Any(c => line.Count(ch => ch == c) > 1)) // plusieurs structures
-                                if (filterTags.Sum(tag => line.Count(ch => ch == tag)) >  1)
+                                if (filterTags.Sum(tag => line.Count(ch => ch == tag)) > 1)
                                 {
                                     foreach (string part in _parts)
                                     {
@@ -454,7 +489,7 @@ namespace Structure_optimisation
                                     }
 
                                     if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(name.ToLower())))
-                                        if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase))
+                                        if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase) && !name.ToUpper().Contains("Z_"))
                                         {
                                             _StructureInter = _ss.AddStructure("PTV", name);
                                             _StructureInter.Color = Color.FromRgb(255, 0, 0);
@@ -475,8 +510,19 @@ namespace Structure_optimisation
                                             _StructureInter1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[0].Trim().ToLower())).SingleOrDefault();
 
                                         _StructureInter2 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[1].Trim().ToLower())).SingleOrDefault();
-                                        
+
                                         string operation = (nSplit[0] + " " + indexeur[0] + " " + nSplit[1]);
+
+                                        if (_StructureInter1.IsHighResolution || _StructureInter2.IsHighResolution || _StructureInter.IsHighResolution)
+                                        {
+
+                                            try { _StructureInter.ConvertToHighResolution(); }
+                                            catch (Exception ex) { Message = ex.Message; }
+                                            try { _StructureInter1.ConvertToHighResolution(); }
+                                            catch (Exception ex) { Message = ex.Message; }
+                                            try { _StructureInter2.ConvertToHighResolution(); }
+                                            catch (Exception ex) { Message = ex.Message; }
+                                        }
 
                                         foreach (var key2 in _structure.Keys)
                                         {
@@ -492,22 +538,31 @@ namespace Structure_optimisation
 
                                         nSplit[0] = name.ToLower();
 
-                                        for (int i = 1; i < nSplit.Count-1; i++)
+                                        for (int i = 1; i < nSplit.Count - 1; i++)
                                         {
-                                            operation = nSplit[0] + " " + indexeur[i] + " " + nSplit[i+1];
+                                            operation = nSplit[0] + " " + indexeur[i] + " " + nSplit[i + 1];
 
-                                           // foreach (var key2 in _structure.Keys)
-                                            //{
-                                                //if (operation.Contains(key2))
-                                                //{
-                                                    _StructureInter1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[i+1].ToLower())).SingleOrDefault();
-                                                    _structure[indexeur[i ]](_StructureInter, _StructureInter1);
-                                               // }
-                                           // }
+                                            _StructureInter1 = _ss.Structures.Where(x => x.Id.ToLower().Equals(nSplit[i + 1].ToLower())).SingleOrDefault();
+                                            _structure[indexeur[i]](_StructureInter, _StructureInter1);
+
                                         }
-                                        _StructureInter.SegmentVolume = _StructureInter.And(BODY);
-                                        _StructureInter.Comment = "Structure générée automatiquement";
 
+                                        // Gestion des structures HR/LR
+                                        try
+                                        {
+                                            _StructureInter.SegmentVolume = _StructureInter.And(BODY);
+                                        }
+                                        catch
+                                        {
+                                           /* _ss.AddStructure("Control", "BODY_HR");
+                                            Structure BODY_HR = _ss.Structures.First(x => x.Id.ToLower().Equals("BODY_HR"));
+                                            BODY_HR.SegmentVolume = BODY.Margin(0);
+                                            BODY_HR.ConvertToHighResolution();
+                                            _StructureInter.SegmentVolume = _StructureInter.And(BODY_HR);
+                                            _ss.RemoveStructure(BODY_HR);*/
+                                        }
+
+                                        _StructureInter.Comment = "Structure générée automatiquement";
                                         Message = $"Operation sur les structures : {_StructureInter.Id} et {_StructureInter1.Id}";
                                         Message = $"Structure {name} créée";
                                         information += $"✅ {_StructureInter.Id} : Operation sur les structures : {_StructureInter1.Id} et {_StructureInter2.Id}\n\n";
@@ -557,7 +612,7 @@ namespace Structure_optimisation
                                     Structure Struct2 = _ss.Structures.Where(x => x.Id.ToLower().Equals(V[1].Trim().ToLower())).SingleOrDefault();
 
                                     if (!_ss.Structures.Any(x => x.Id.ToLower().Equals(name.ToLower())))
-                                        if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase))
+                                        if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase) && !name.ToUpper().Contains("Z_"))
                                         {
                                             myStruct = _ss.AddStructure("PTV", name);
                                             myStruct.Color = Color.FromRgb(255, 0, 0);
@@ -572,13 +627,35 @@ namespace Structure_optimisation
                                     else
                                         myStruct = _ss.Structures.Where(x => x.Id.ToLower().Equals(name.ToLower())).SingleOrDefault();
 
+                                    if (Struct1.IsHighResolution || Struct2.IsHighResolution || myStruct.IsHighResolution)
+                                    {
+                                        try { myStruct.ConvertToHighResolution(); }
+                                        catch (Exception ex) { Message = ex.Message; }
+                                        try { Struct1.ConvertToHighResolution(); }
+                                        catch (Exception ex) { Message = ex.Message; }
+                                        try { Struct2.ConvertToHighResolution(); }
+                                        catch (Exception ex) { Message = ex.Message; }
+                                    }
+
                                     try
                                     {
                                         myStruct.SegmentVolume = Struct1.Margin(0.00);
                                         _structure[key](myStruct, Struct2);
-                                        myStruct.SegmentVolume = myStruct.And(BODY);
-                                        myStruct.Comment = "Structure générée automatiquement";
+                                        try
+                                        {
+                                            myStruct.SegmentVolume = myStruct.And(BODY);
+                                        }
+                                        catch
+                                        {
+                                          /*  _ss.AddStructure("Control", "BODY_HR");
+                                            Structure BODY_HR = _ss.Structures.First(x => x.Id.ToLower().Equals("BODY_HR"));
+                                            BODY_HR.SegmentVolume = BODY.Margin(0);
+                                            BODY_HR.ConvertToHighResolution();
+                                            myStruct.SegmentVolume = myStruct.And(BODY_HR);
+                                            _ss.RemoveStructure(BODY_HR);*/
+                                        }
 
+                                        myStruct.Comment = "Structure générée automatiquement";
                                         Message = $"Operation sur les structures : {Struct1.Id} et {Struct2.Id}";
                                         Message = $"Structure {name} créée";
                                         information += $"✅ {name} : Operation sur les structures : {Struct1.Id} et {Struct2.Id}\n\n";
@@ -639,7 +716,7 @@ namespace Structure_optimisation
                                 Message = $"********** Operation simple **********";
                                 Message = $"Operation simple : création de structure vide";
 
-                                if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase))
+                                if (Regex.IsMatch(name, @"\b(?:.*(?:ITV|PTV|GTV|CTV).*\b)", RegexOptions.IgnoreCase) && !name.ToUpper().Contains("Z_"))
                                 {
                                     myStruct = _ss.AddStructure("PTV", name);
                                     myStruct.Color = Color.FromRgb(255, 0, 0);
@@ -666,9 +743,7 @@ namespace Structure_optimisation
                             }
                         }
                         #endregion
-
                         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
                     }
                 }
                 #endregion
@@ -681,21 +756,20 @@ namespace Structure_optimisation
                 Message = "\n**********************************************************************************************************\n";
             }
 
-            MessageRecap(information, erreur, System.IO.Path.GetFileNameWithoutExtension(_userFileChoice));
-
             foreach (var autostruct in _ss.Structures)
             {
                 if (autostruct.Comment.Contains("automatiquement"))
                     autostruct.Id = autostruct.Id + "_auto";
             }
 
+            MessageRecap(information, erreur, System.IO.Path.GetFileNameWithoutExtension(_userFileChoice));
             #endregion
 
             srf.Close();
             try
             {
                 Message = $"\nSuccés dans la régénération du fichier de départ\n";
-                Message = $"Détail du fichier de départ :\n\n{fileContent_original}\n\nDétail du fichier de fin :\n\n{fileContent}\n";
+                Message = $"Détail du fichier de départ :\n\n{fileContent}\n\nDétail du fichier de fin :\n\n{fileContent_original}\n";
                 File.WriteAllText(System.IO.Path.GetFullPath(_userFileChoice), fileContent_original);
             }
             catch (Exception ex)
@@ -704,12 +778,16 @@ namespace Structure_optimisation
                 Message = $"\nErreur dans la régénération du fichier de départ\n";
                 Message = $"Fichier actuel non approuvé :\n\n{fileContent}\n";
             }
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         #region Message
         internal void MessageRecap(string information, string erreur, string file)
         {
-            MessageBox.Show($"Protocole utilisé : {file}\n\n" + information + "\n\n" + erreur, "Récapitulatif", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+            VolumeRecap recap = new VolumeRecap(information, erreur, file);
+            recap.ShowDialog();
         }
         internal string Message
         {

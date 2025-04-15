@@ -13,7 +13,6 @@ using Structure_optimisation;
 
 namespace VMS.TPS
 {
-
 	public class Script
 	{
 		public Script()
@@ -23,16 +22,15 @@ namespace VMS.TPS
 		[MethodImpl(MethodImplOptions.NoInlining)]
 		public void Execute(ScriptContext context)
 		{
-            UserInterface _interface = new UserInterface(context);
+
             try
 			{
                 context.Patient.BeginModifications();
-				_interface.ShowDialog();
-				_interface.IsOpened(true);
+                UserInterfaceModel model = new UserInterfaceModel(context);
+                model.IsOpened(true);
 			}
 			catch
 			{
-                _interface.IsOpened(true);
             }
 		}
 	}
